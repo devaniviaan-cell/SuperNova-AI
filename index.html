@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Supernova</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0922;--bg2:#1a1352;--panel:rgba(255,255,255,.06);--line:rgba(190,175,255,.2);--tx:#f3f0ff;--mut:#a9a1d6;--a:#5ee7df;--b:#b98cff;--c:#ffb86b;--star:244,240,255;--user:rgba(120,90,255,.3);--font:'Figtree',system-ui,sans-serif;--disp:'Bricolage Grotesque','Figtree',system-ui,sans-serif;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f5f2ff;--bg2:#e2d9ff;--panel:rgba(255,255,255,.72);--line:rgba(80,60,170,.2);--tx:#1b1448;--mut:#5d5496;--a:#0a9d96;--b:#6b3fe0;--c:#e07a1f;--star:80,60,170;--user:rgba(107,63,224,.14);color-scheme:light}}
+:root[data-theme="dark"]{color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(900px 600px at 80% -10%,var(--bg2),transparent 70%),radial-gradient(700px 500px at 0% 100%,color-mix(in srgb,var(--b) 22%,transparent),transparent 70%),var(--bg);color:var(--tx);font:16px/1.6 var(--font);display:grid;grid-template-columns:270px 1fr;overflow:hidden}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+aside,main{position:relative;z-index:1;min-height:0}
+aside{display:flex;flex-direction:column;gap:12px;padding:20px 14px;border-right:1px solid var(--line);background:var(--panel);backdrop-filter:blur(18px)}
+.brand{display:flex;align-items:center;gap:10px;font:700 24px var(--disp);padding:0 6px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+#new{border:1px solid var(--line);background:linear-gradient(120deg,color-mix(in srgb,var(--b) 35%,transparent),color-mix(in srgb,var(--a) 25%,transparent));border-radius:12px;padding:10px;font-weight:600}
+#list{overflow:auto;display:flex;flex-direction:column;gap:2px}
+.ci{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;border-radius:10px;cursor:pointer;color:var(--mut);font-size:14px}
+.ci>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.acts{display:flex;flex:none}
+.ci:hover,.ci.on{background:var(--panel);color:var(--tx)}.rn{width:100%;min-width:0;background:var(--panel);border:1px solid var(--a);border-radius:6px;color:var(--tx);font:inherit;padding:0 6px}.act{display:flex;gap:14px;margin-top:4px}.act button{background:none;border:0;color:var(--mut);font-size:13px;padding:0}.act button:hover{color:var(--a)}.hb{margin-left:auto;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:4px 12px;font-size:14px;color:var(--mut)}#ttl{cursor:pointer}#pend:empty{display:none}.bar{padding-left:8px}.act button.on{color:var(--a)}.why{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--mut);margin-top:6px}.why button{border:1px solid var(--line);background:var(--panel);border-radius:99px;padding:2px 10px;font-size:13px;color:var(--tx)}.hb2{margin-left:8px;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:4px 12px;font-size:14px;color:var(--mut)}dialog{background:var(--bg);color:var(--tx);border:1px solid var(--line);border-radius:18px;padding:20px;width:min(440px,92vw)}dialog::backdrop{background:rgba(5,3,20,.6);backdrop-filter:blur(4px)}dialog h3{font-family:var(--disp);margin:0 0 8px}dialog select,dialog textarea{width:100%;margin:6px 0;background:var(--panel);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:8px;font:inherit;resize:vertical}.rb{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}.rb button{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:6px 14px}#rs{background:linear-gradient(135deg,var(--b),var(--a));color:#0b0922;font-weight:600;border:0}#rm{margin:8px 0 0;color:var(--a);font-size:14px}#mlist{margin:10px 0;max-height:40vh;overflow:auto}.mf{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}.mf button{background:none;border:0;color:var(--mut)}#mlist p{color:var(--mut);margin:0}.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;filter:blur(70px);opacity:.5}.aurora i{position:absolute;width:46vmax;height:46vmax;border-radius:50%;animation:drift 26s ease-in-out infinite alternate}.aurora i:nth-child(1){background:var(--b);left:-12vmax;top:-10vmax}.aurora i:nth-child(2){background:var(--a);right:-16vmax;top:22vmax;opacity:.5;animation-duration:32s}.aurora i:nth-child(3){background:var(--c);left:30vw;bottom:-28vmax;opacity:.3;animation-duration:38s}@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15)}}h1{background:linear-gradient(100deg,var(--tx),var(--a) 45%,var(--b) 75%,var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}.orb{position:relative}.orb::after{content:"";position:absolute;inset:-18%;border-radius:50%;border:1.5px solid transparent;border-top-color:var(--a);border-right-color:var(--b);animation:ring 5s linear infinite}.think .orb::after{animation-duration:.9s}@keyframes ring{to{transform:rotate(360deg)}}.feat{display:flex;flex-wrap:wrap;gap:8px;margin:-10px 0 24px}.feat span{border:1px solid var(--line);background:var(--panel);border-radius:99px;padding:3px 12px;font-size:14px;backdrop-filter:blur(10px)}.ch button+button{margin-left:12px}.art{padding:0}.art img{display:block;width:100%;height:auto;background:rgba(255,255,255,.04)}.art .ch{border-top:1px solid var(--line);border-bottom:0}.mcq{margin-top:10px;display:flex;flex-direction:column;gap:8px;max-width:460px}.mcq p{margin:0;color:var(--mut)}.mcq button{text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:10px 14px;backdrop-filter:blur(10px)}.mcq button:hover{border-color:var(--a);box-shadow:0 0 18px color-mix(in srgb,var(--a) 30%,transparent)}.big{width:min(1100px,96vw);height:90vh;padding:0;overflow:hidden}.big[open]{display:flex;flex-direction:column}.ph{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}.ph button{margin-left:8px;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:2px 10px}#pf{flex:1;border:0;width:100%;background:#fff}
+.ci button{border:0;background:none;color:var(--mut);padding:0 4px}
+main{display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:12px;padding:12px 20px;min-height:52px}
+#menu{display:none;border:1px solid var(--line);background:var(--panel);border-radius:10px;width:38px;height:38px}
+#ttl{color:var(--mut);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#scroll{flex:1;overflow:auto;padding:0 20px 20px}
+.wrap{max-width:780px;margin:0 auto}
+.orb{--s:44px;flex:none;width:var(--s);height:var(--s);border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,var(--c) 16%,var(--b) 52%,transparent 74%),radial-gradient(circle,var(--a),transparent 70%);box-shadow:0 0 calc(var(--s)*.5) var(--b),0 0 calc(var(--s)*1.3) color-mix(in srgb,var(--a) 40%,transparent);animation:breathe 5s ease-in-out infinite}
+.think .orb{animation-duration:1.1s}
+@keyframes breathe{50%{transform:scale(1.09);filter:hue-rotate(45deg)}}
+#empty{padding-top:7vh}
+#empty .orb{--s:120px;margin-bottom:28px}
+h1{font:700 clamp(38px,7vw,68px)/1.02 var(--disp);letter-spacing:-.03em;margin:0 0 10px}
+#empty p{color:var(--mut);margin:0 0 28px;max-width:46ch;font-size:18px}
+.ideas{display:flex;flex-direction:column;max-width:560px}
+.ideas button{text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:14px 4px;font-size:16px}
+.ideas button:hover{color:var(--a);padding-left:12px;transition:.2s}
+.m{display:flex;margin:18px 0}
+.m.u{justify-content:flex-end}
+.m.u .b{background:var(--user);border:1px solid var(--line);padding:10px 16px;border-radius:20px 20px 4px 20px;max-width:82%}
+.m.a .b{max-width:100%;min-width:0}
+.b p,.b ul,.b ol{margin:0 0 .8em}
+.b h3,.b h4,.b h5{font-family:var(--disp);margin:1em 0 .4em}
+.b a{color:var(--a)}
+.b code{background:var(--panel);padding:1px 6px;border-radius:6px;font-size:.9em}
+.code{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:0 0 1em;background:color-mix(in srgb,var(--bg) 70%,transparent)}
+.ch{display:flex;justify-content:space-between;padding:6px 12px;font-size:12px;color:var(--mut);border-bottom:1px solid var(--line)}
+.ch button{background:none;border:0;color:var(--a);font-size:12px}
+pre{margin:0;padding:12px 14px;overflow-x:auto;font-size:13.5px;line-height:1.55}
+pre code{background:none;padding:0}
+.dots i{display:inline-block;width:8px;height:8px;margin-right:5px;border-radius:50%;background:var(--b);animation:bl 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes bl{50%{opacity:.2;transform:translateY(-4px)}}
+footer{padding:8px 20px 18px}
+.chips{display:flex;gap:8px;margin:0 auto 10px;max-width:780px;flex-wrap:wrap}
+.chips button{border:1px solid var(--line);background:var(--panel);border-radius:99px;padding:4px 14px;font-size:14px;color:var(--mut)}
+.chips button.on{color:var(--tx);border-color:var(--a);box-shadow:0 0 16px color-mix(in srgb,var(--a) 35%,transparent)}
+.bar{max-width:780px;margin:0 auto;display:flex;align-items:flex-end;gap:8px;border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(18px);border-radius:24px;padding:8px 8px 8px 18px}
+textarea{flex:1;resize:none;border:0;outline:0;background:none;color:var(--tx);font:inherit;max-height:180px;padding:6px 0}
+textarea::placeholder{color:var(--mut)}
+.bar button{width:40px;height:40px;border-radius:50%;border:0;background:var(--panel);flex:none}
+#go{background:linear-gradient(135deg,var(--b),var(--a));color:#0b0922;font-weight:700}
+#mic.on{background:var(--c);color:#0b0922}
+@media(max-width:760px){body{grid-template-columns:1fr}
+aside{position:fixed;inset:0 auto 0 0;width:280px;transform:translateX(-100%);transition:transform .25s;z-index:5;background:var(--bg)}
+aside.open{transform:none}#menu{display:block}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head>
+<body>
+<canvas id="sky"></canvas><div class="aurora"><i></i><i></i><i></i></div>
+<aside id="side"><div class="brand"><div class="orb" style="--s:26px"></div>Supernova</div><button id="new">New chat</button><div id="list"></div></aside>
+<main>
+<header><button id="menu" aria-label="Open chats">☰</button><span id="ttl" title="Click to rename"></span><button id="mem" class="hb">Memory</button><button id="rep" class="hb2">Report</button><button id="exp" class="hb2" hidden>Export</button></header>
+<section id="scroll"><div class="wrap">
+<div id="empty"><div class="orb"></div><h1>Hi, I’m Supernova.</h1><p>Ask me anything. I can write, code, explain, plan and think things through with you.</p><div class="feat"><span>🎨 Make images</span><span>▶ Preview code live</span><span>🎙 Voice</span><span>🧠 Remembers you</span></div>
+<div class="ideas"><button>Explain quantum computing like I’m 12</button><button data-mode="Coder">Build a Snake game I can play right here</button><button data-mode="Image">Create an image of a neon city in the rain</button><button>Help me write a polite email asking for a deadline extension</button></div></div>
+<div id="msgs"></div></div></section>
+<footer><div class="chips" id="chips"></div>
+<div class="chips" id="pend"></div><div class="bar"><button id="att" aria-label="Attach files or images">📎</button><input id="file" type="file" multiple hidden accept="image/*,.txt,.md,.csv,.json,.js,.ts,.py,.html,.css,.xml,.log"><textarea id="in" rows="1" placeholder="Message Supernova…" aria-label="Message"></textarea><button id="mic" aria-label="Dictate">🎤</button><button id="spk" aria-label="Read replies aloud">🔇</button><button id="go" aria-label="Send">➤</button></div></footer>
+</main>
+<dialog id="dlg"><h3>Report a problem or idea</h3><select id="rt" aria-label="Type"><option>Wrong or bad answer</option><option>Bug</option><option>Idea to improve</option><option>Something else</option></select><textarea id="rx" rows="5" placeholder="Tell us what happened and what would make it better"></textarea><label><input type="checkbox" id="ri"> Include the last exchange</label><div class="rb"><button id="rc">Cancel</button><button id="rs">Send report</button></div><p id="rm"></p></dialog>
+<dialog id="mdlg"><h3>What Supernova remembers</h3><label><input type="checkbox" id="mon"> Remember things about me</label><div id="mlist"></div><div class="rb"><button id="mclr">Clear all</button><button id="mcl">Close</button></div></dialog>
+<dialog id="pdlg" class="big"><div class="ph"><b>Live preview</b><span><button id="pfs">Fullscreen</button><button id="pcl">Close</button></span></div><iframe id="pf" sandbox="allow-scripts allow-modals allow-pointer-lock allow-forms" title="Preview"></iframe></dialog>
+<script>
+const $=s=>document.querySelector(s);
+const MODES={Everyday:'You are Supernova, a warm, sharp, genuinely helpful assistant. Answer clearly and concisely; use Markdown when it helps.',Coder:'You are Supernova in Coder mode, an expert engineer. Give working code in fenced blocks with a language tag, explain briefly, and flag edge cases. For web pages, games or interfaces, deliver ONE complete self-contained HTML file (inline CSS and JS) in a single html fenced block so it can be previewed live.',Writer:'You are Supernova in Writer mode, a gifted editor and writer. Match the requested tone, use vivid original phrasing, keep structure tight.',Study:'You are Supernova in Study mode, a patient tutor. Explain step by step with examples, then check understanding with one short question.',Image:'You are Supernova in Image mode, a gifted illustrator. Create the requested image as ONE complete self-contained SVG (viewBox 0 0 800 600, rich gradients, layered shapes, lighting and detail, no external resources) inside a single svg fenced code block, then add one short line describing it.'};
+let chats=[],cur=null,mode='Everyday',busy=false,ctl=null;
+try{chats=JSON.parse(localStorage.getItem('nova.chats')||'[]')}catch(e){}
+const save=()=>{try{localStorage.setItem('nova.chats',JSON.stringify(chats.slice(0,40)))}catch(e){}};
+const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function md(t){const bl=[];
+t=esc(t).replace(/```(\w*)\n?([\s\S]*?)(```|$)/g,(m,l,c,e)=>{c=c.replace(/\n$/,'');l=l.toLowerCase();let h;
+if(l==='svg'){h=e?`<div class="code art"><img alt="Generated image" src="data:image/svg+xml;base64,${b64(c.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&'))}"><div class="ch"><span>svg image</span><span><button data-dl>Download</button><button data-copy>Copy code</button></span></div><pre hidden><code>${c}</code></pre></div>`:'<div class="code art"><div class="ch"><span>Drawing…</span></div></div>'}
+else h=`<div class="code"><div class="ch"><span>${l||'code'}</span><span>${l==='html'?'<button data-prev>▶ Preview</button>':''}<button data-copy>Copy</button></span></div><pre><code>${c}</code></pre></div>`;
+bl.push(h);return '\u0000'+(bl.length-1)+'\u0000'});
+const inl=s=>s.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/(^|\W)\*([^*\n]+)\*/g,'$1<i>$2</i>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+let o='',ls=null;const cl=()=>{if(ls){o+='</'+ls+'>';ls=null}};
+for(const ln of t.split('\n')){let m;
+if(m=ln.match(/^\s*[-*]\s+(.*)/)){if(ls!=='ul'){cl();o+='<ul>';ls='ul'}o+='<li>'+inl(m[1])+'</li>'}
+else if(m=ln.match(/^\s*\d+[.)]\s+(.*)/)){if(ls!=='ol'){cl();o+='<ol>';ls='ol'}o+='<li>'+inl(m[1])+'</li>'}
+else{cl();if(m=ln.match(/^(#{1,3})\s+(.*)/)){const n=m[1].length+2;o+=`<h${n}>${inl(m[2])}</h${n}>`}
+else if(/^\u0000\d+\u0000$/.test(ln.trim()))o+=ln.trim();else if(ln.trim())o+='<p>'+inl(ln)+'</p>'}}
+cl();return o.replace(/\u0000(\d+)\u0000/g,(m,i)=>bl[i])}
+const body=m=>m.r==='u'?esc(m.t).replace(/\n/g,'<br>'):(md(clean(m.t))||'<span class="dots"><i></i><i></i><i></i></span>');
+const sc=()=>{const s=$('#scroll');s.scrollTop=s.scrollHeight};
+function render(){
+$('#list').innerHTML=chats.map(c=>`<div class="ci ${c.id===cur?'on':''}" data-id="${c.id}"><span>${esc(c.title)}</span><span class="acts"><button data-ren="${c.id}" aria-label="Rename chat">✎</button><button data-del="${c.id}" aria-label="Delete chat">×</button></span></div>`).join('');
+const c=chats.find(x=>x.id===cur);$('#empty').hidden=!!(c&&c.msgs.length);$('#ttl').textContent=c?c.title:'';$('#exp').hidden=!c;
+$('#msgs').innerHTML=c?c.msgs.map((m,i)=>`<div class="m ${m.r}" data-i="${i}"><div class="b">${body(m)}${m.r==='a'&&m.t&&!busy?`<div class="act"><button data-cp="${i}">Copy</button><button data-sp="${i}">Listen</button><button data-up="${i}" class="${m.fb==='up'?'on':''}" aria-label="Good answer">👍</button><button data-dn="${i}" class="${m.fb==='down'?'on':''}" aria-label="Bad answer">👎</button>${i===c.msgs.length-1?'<button data-rg>Regenerate</button>':''}</div>${m.ask&&i===c.msgs.length-1?'<div class="why">What went wrong? <button data-why="Incorrect">Incorrect</button><button data-why="Too long">Too long</button><button data-why="Too vague">Too vague</button><button data-why="Off topic">Off topic</button></div>':''}${chHtml(m,i,c)}`:''}</div></div>`).join(''):'';sc()}
+function paint(){const c=chats.find(x=>x.id===cur),b=$('#msgs').lastElementChild?.querySelector('.b');if(c&&b){b.innerHTML=body(c.msgs[c.msgs.length-1]);sc()}}
+function setBusy(v){busy=v;document.body.classList.toggle('think',v);$('#go').textContent=v?'■':'➤'}
+async function send(text,hint){text=text.trim();if(busy)return;const att=pending.splice(0);if(!text&&!att.length)return;
+let c=chats.find(x=>x.id===cur);
+if(!c){c={id:Date.now()+'',title:(text||att[0].name).slice(0,40),msgs:[]};chats.unshift(c);cur=c.id}
+const tx=att.filter(a=>a.text!=null),imgs=att.filter(a=>a.blob).map(a=>a.blob);
+const last={r:'a',t:''};c.msgs.push({r:'u',t:text+(att.length?'\n\n'+att.map(a=>'📎 '+a.name).join('  '):''),x:text+tx.map(a=>'\n\n[File: '+a.name+']\n'+a.text).join('')+(imgs.length?'\n\n['+imgs.length+' image(s) attached]':'')},last);renderPend();render();setBusy(true);
+await reply(c,last,hint,imgs)}
+async function reply(c,last,hint,imgs){setBusy(true);
+const h=c.msgs.slice(0,-1).slice(-24).map(m=>({role:m.r==='u'?'user':'assistant',content:m.x||m.t}));
+h[0].content='[Instructions: '+CORE+MODES[mode]+' Reply in the language the user writes in. You cannot browse the web or see live data, so for recent events or live facts say your information may be out of date and suggest the user paste in the source. Your creator is Viaan Devani: if asked who made or built you, say Viaan Devani created Supernova. If asked what model powers you, say honestly that Supernova is built on Claude, made by Anthropic. Think carefully and double-check facts, math and code before answering.'+memInstr()+(hint?' The user marked your last answer as bad ('+hint+'). Give a clearly better answer that fixes that.':'')+']\n\n'+h[0].content;
+try{const s=window.claude&&await claude.use('sample');if(!s)throw{code:'unavailable'};
+ctl=new AbortController();
+const r=await s(h,{onText:({text})=>{last.t=text;paint()},signal:ctl.signal,cache:false,modelTier:(thinkOn||hard((c.msgs[c.msgs.length-2]||{}).t||''))?'complex':'default',...(imgs&&imgs.length?{images:imgs}:{})});last.t=r.text}
+catch(e){if(!(e&&(e.name==='AbortError'||e.code==='aborted'||e.code==='cancelled'))){const w={not_granted:'Supernova needs permission to answer. Reload and allow it when asked.',rate_limited:'Supernova has reached its usage limit for now. Wait a bit, then press Regenerate. Nothing you typed is lost.',unavailable:'Supernova can only answer when this page is open in Claude.',images_unavailable:'Images can’t be sent from here right now.'};last.t=(e&&e.text)||last.t||(w[e&&e.code]||'Something went wrong. Try sending that again.')}else if(!last.t)last.t='Stopped.'}
+setBusy(false);ctl=null;harvest(last);paint();save();render();if(spkOn&&last.t)speak(last.t,talkOn?listen:null)}
+$('#go').onclick=()=>busy?ctl&&ctl.abort():go();
+function go(){const i=$('#in');const t=i.value;i.value='';grow();send(t)}
+const grow=()=>{const i=$('#in');i.style.height='auto';i.style.height=Math.min(i.scrollHeight,180)+'px'};
+$('#in').oninput=grow;
+$('#in').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();go()}};
+function rename(id){const c=chats.find(x=>x.id===id),el=document.querySelector(`.ci[data-id="${id}"] span`);if(!c||!el)return;
+const i=document.createElement('input');i.className='rn';i.maxLength=60;i.value=c.title;el.replaceWith(i);i.focus();i.select();let d=false;
+const fin=ok=>{if(d)return;d=true;if(ok&&i.value.trim())c.title=i.value.trim();save();render()};
+i.onkeydown=e=>{if(e.key==='Enter')fin(true);if(e.key==='Escape')fin(false)};i.onblur=()=>fin(true);i.onclick=e=>e.stopPropagation()}
+$('#ttl').onclick=()=>{if(cur){$('#side').classList.add('open');rename(cur)}};
+$('#exp').onclick=async()=>{const c=chats.find(x=>x.id===cur);if(!c)return;
+try{const dl=window.claude&&await claude.use('downloads');if(!dl)return;
+await dl.save({filename:(c.title.replace(/[^\w ]+/g,'').trim().replace(/ +/g,'-')||'chat')+'.md',data:c.msgs.map(m=>(m.r==='u'?'**You:** ':'**Supernova:** ')+m.t).join('\n\n')})}catch(e){}};
+$('#new').onclick=()=>{cur=null;render();$('#side').classList.remove('open');$('#in').focus()};
+$('#menu').onclick=()=>$('#side').classList.toggle('open');
+$('#list').onclick=e=>{const d=e.target.dataset.del,rn=e.target.dataset.ren;if(rn){rename(rn);return}
+if(d){chats=chats.filter(c=>c.id!==d);if(cur===d)cur=null;save();render();return}
+const i=e.target.closest('.ci');if(i){cur=i.dataset.id;render();$('#side').classList.remove('open')}};
+$('#msgs').onclick=e=>{const k=e.target.dataset,ch=chats.find(x=>x.id===cur);
+if(k.cp!==undefined&&ch){try{navigator.clipboard.writeText(ch.msgs[k.cp].t);e.target.textContent='Copied';setTimeout(()=>e.target.textContent='Copy',1500)}catch(x){}}
+if(k.rg!==undefined&&ch&&!busy)regen(ch);
+if(k.sp!==undefined&&ch)speak(ch.msgs[k.sp].t);
+if(k.prev!==undefined)openPrev(e.target);
+if(k.dl!==undefined)dlSvg(e.target);
+if(k.ch!==undefined&&ch&&!busy){const o=ch.msgs[ch.msgs.length-1].ch;if(o&&o.o[k.ch])send(o.o[k.ch])}
+if((k.up!==undefined||k.dn!==undefined)&&ch){const i=+(k.up??k.dn),m=ch.msgs[i];m.fb=k.up!==undefined?'up':'down';m.ask=m.fb==='down'?1:0;logFb(m.fb);save();render()}
+if(k.why!==undefined&&ch&&!busy){ch.msgs[ch.msgs.length-1].ask=0;logFb('down',k.why);regen(ch,k.why)}
+if(e.target.dataset.copy!==undefined){const t=e.target.closest('.code').querySelector('code').innerText;
+try{navigator.clipboard.writeText(t);e.target.textContent='Copied';setTimeout(()=>e.target.textContent='Copy',1500)}catch(x){}}};
+document.querySelector('.ideas').onclick=e=>{if(e.target.tagName==='BUTTON'){if(e.target.dataset.mode)setMode(e.target.dataset.mode);send(e.target.textContent)}};
+$('#chips').innerHTML=Object.keys(MODES).map(k=>`<button class="${k===mode?'on':''}">${k}</button>`).join('')+'<button id="think">🧠 Think deeper</button><button id="talk">🎧 Talk</button>';
+$('#chips').onclick=e=>{if(e.target.tagName==='BUTTON'&&!e.target.id){mode=e.target.textContent;[...$('#chips').children].forEach(b=>{if(!b.id)b.classList.toggle('on',b.textContent===mode)})}};
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+if(!SR)$('#mic').hidden=true;else $('#mic').onclick=listen;
+let pending=[],spkOn=false,talkOn=false,dbp=null;
+const getdb=()=>dbp||(dbp=(window.claude?claude.use('db'):Promise.resolve(null)).catch(()=>null));
+async function logFb(v,why){try{const db=await getdb();if(db)await db.collection('feedback').add({v,why:why||'',mode,t:Date.now()})}catch(e){}}
+function regen(ch,hint){ch.msgs.pop();const last={r:'a',t:''};ch.msgs.push(last);render();reply(ch,last,hint,null)}
+function speak(t,done){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t.replace(/```[\s\S]*?```/g,' code block. ').replace(/https?:\S+/g,'link').replace(/[*#`_]/g,''));u.onend=()=>done&&done();speechSynthesis.speak(u)}catch(e){done&&done()}}
+function listen(){if(!SR)return;try{const r=new SR();r.onresult=e=>{const t=e.results[0][0].transcript;if(talkOn)send(t);else{$('#in').value+=t;grow()}};r.onend=()=>$('#mic').classList.remove('on');r.start();$('#mic').classList.add('on')}catch(e){$('#mic').hidden=true}}
+function renderPend(){$('#pend').innerHTML=pending.map((a,i)=>`<button data-x="${i}">${a.blob?'🖼':'📄'} ${esc(a.name)} ×</button>`).join('')}
+$('#att').onclick=()=>$('#file').click();
+$('#file').onchange=async e=>{for(const f of e.target.files){if(pending.length>=6)break;
+if(f.type.startsWith('image/'))pending.push({name:f.name,blob:f});
+else try{pending.push({name:f.name,text:(await f.text()).slice(0,30000)})}catch(x){}}
+e.target.value='';renderPend()};
+$('#pend').onclick=e=>{const i=e.target.dataset.x;if(i!==undefined){pending.splice(+i,1);renderPend()}};
+if(!SR)$('#talk').hidden=true;
+$('#spk').onclick=()=>{spkOn=!spkOn;$('#spk').textContent=spkOn?'🔊':'🔇';if(!spkOn)try{speechSynthesis.cancel()}catch(e){}};
+$('#talk').onclick=e=>{talkOn=!talkOn;e.currentTarget.classList.toggle('on',talkOn);if(talkOn){spkOn=true;$('#spk').textContent='🔊';listen()}else try{speechSynthesis.cancel()}catch(x){}};
+$('#rep').onclick=()=>{$('#rm').textContent='';$('#dlg').showModal()};
+$('#rc').onclick=()=>$('#dlg').close();
+$('#rs').onclick=async()=>{const x=$('#rx').value.trim();if(!x)return;const ch=chats.find(c=>c.id===cur),rec={type:$('#rt').value,text:x,t:Date.now()};
+if($('#ri').checked&&ch)rec.chat=ch.msgs.slice(-2).map(m=>m.t.slice(0,1500));
+try{const db=await getdb();if(!db)throw 0;await db.collection('reports').add(rec);$('#rx').value='';$('#rm').textContent='Thanks. Your report was sent.';setTimeout(()=>$('#dlg').close(),1200)}
+catch(e){$('#rm').textContent='Couldn’t send the report right now. Try again later.'}};
+let thinkOn=false,mem=[],memOn=true,uid=null;
+const clean=t=>(t||'').replace(/\[\[(?:remember|choices):[\s\S]*?\]\]/g,'').replace(/\[\[[^\]]*$/,'').trim();
+function memInstr(){return memOn?' If the user shares a lasting fact or preference worth remembering, or asks you to remember something, end your reply with a line [[remember: short fact about the user]] (one per fact; never mention it; never save passwords, card or ID numbers).'+(mem.length?' What you remember about this user: '+mem.join('; ')+'.':''):''}
+function harvest(m){const cm=/\[\[choices:([\s\S]*?)\]\]/.exec(m.t||'');if(cm){const p=cm[1].split('|').map(s=>s.trim()).filter(Boolean);if(p.length>2)m.ch={q:p[0],o:p.slice(1,6)}}const re=/\[\[remember:([\s\S]*?)\]\]/g;let x,add=0;
+while(x=re.exec(m.t||'')){const f=x[1].trim().slice(0,200);if(memOn&&f&&mem.length<50&&!mem.some(y=>y.toLowerCase()===f.toLowerCase())){mem.push(f);add=1}}
+m.t=clean(m.t);if(add)memSave()}
+async function memSave(){try{localStorage.setItem('sn.mem',JSON.stringify(mem))}catch(e){}
+try{if(uid){const db=await getdb();if(db)await db.collection('data/users/'+uid).doc('memory').set({facts:mem})}}catch(e){}}
+async function memInit(){try{mem=JSON.parse(localStorage.getItem('sn.mem')||'[]');memOn=localStorage.getItem('sn.memoff')!=='1'}catch(e){}
+try{const u=window.claude&&await claude.use('user'),db=await getdb();if(u&&db){uid=await u.id();if(uid){const d=await db.collection('data/users/'+uid).doc('memory').get();
+if(d.exists)mem=(d.data().facts||[]).map(String);else if(mem.length)memSave()}}}catch(e){}}
+memInit();
+function memRender(){$('#mon').checked=memOn;$('#mlist').innerHTML=mem.length?mem.map((f,i)=>`<div class="mf"><span>${esc(f)}</span><button data-md="${i}" aria-label="Forget this">×</button></div>`).join(''):'<p>Nothing yet. Tell Supernova about yourself, or say “remember that…”.</p>'}
+$('#mem').onclick=()=>{memRender();$('#mdlg').showModal()};
+$('#mcl').onclick=()=>$('#mdlg').close();
+$('#mclr').onclick=()=>{mem=[];memSave();memRender()};
+$('#mlist').onclick=e=>{const i=e.target.dataset.md;if(i!==undefined){mem.splice(+i,1);memSave();memRender()}};
+$('#mon').onchange=e=>{memOn=e.target.checked;try{localStorage.setItem('sn.memoff',memOn?'0':'1')}catch(x){}};
+$('#think').onclick=e=>{thinkOn=!thinkOn;e.currentTarget.classList.toggle('on',thinkOn)};
+const CORE='Before replying, silently work out what the person really wants: their goal, constraints, level, tone and language. Answer the actual question first, then add only what helps. Be accurate; if unsure say so instead of guessing, and check math, code and facts. If the request is truly ambiguous and one quick choice would change your answer, ask ONE short question by ending your reply with [[choices: question | option 1 | option 2 | option 3]] (2 to 5 options) instead of guessing; otherwise just answer. When you rely on attached files, finish with a short Sources list naming them. Never invent URLs, quotes, papers or statistics. You cannot browse, so if asked for web sources say so, and only name sources you are sure exist, marked as to verify. ';
+let sh=null;
+const hard=t=>t.length>500||/```|prove|derive|step by step|debug|algorithm|compare|analy[sz]e|strategy|optimi[sz]e/i.test(t);
+function b64(s){try{return btoa(unescape(encodeURIComponent(s)))}catch(e){return ''}}
+function setMode(m){mode=m;[...$('#chips').children].forEach(b=>{if(!b.id)b.classList.toggle('on',b.textContent===m)})}
+function chHtml(m,i,c){return m.ch&&i===c.msgs.length-1&&!busy?'<div class="mcq"><p>'+esc(m.ch.q)+'</p>'+m.ch.o.map((o,j)=>`<button data-ch="${j}">${esc(o)}</button>`).join('')+'</div>':''}
+function previewDoc(text,code){const bk=[...text.matchAll(/```(\w*)\n?([\s\S]*?)```/g)].map(m=>[m[1].toLowerCase(),m[2]]);
+let h=code;if(!/<html|<!doctype|<body/i.test(h))h='<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><body style="margin:0;font-family:system-ui">'+h;
+const css=bk.filter(b=>b[0]==='css').map(b=>b[1]).join('\n'),js=bk.filter(b=>b[0]==='js'||b[0]==='javascript').map(b=>b[1]).join('\n');
+if(css&&!/<style/i.test(h))h+='<style>'+css+'</style>';if(js&&!/<script/i.test(h))h+='<script>'+js+'<\/script>';return h}
+function openPrev(btn){const code=btn.closest('.code').querySelector('code').textContent,mi=+btn.closest('.m').dataset.i,ch=chats.find(x=>x.id===cur);$('#pf').srcdoc=previewDoc(ch?ch.msgs[mi].t:'',code);$('#pdlg').showModal()}
+$('#pcl').onclick=()=>{$('#pdlg').close();$('#pf').srcdoc=''};
+$('#pfs').onclick=()=>{try{$('#pf').requestFullscreen()}catch(e){}};
+async function dlSvg(btn){try{const dl=window.claude&&await claude.use('downloads');if(!dl)return;await dl.save({filename:'supernova-image.svg',data:btn.closest('.code').querySelector('code').textContent})}catch(e){}}
+// starfield
+const cv=$('#sky'),cx=cv.getContext('2d');let W,H,st=[];
+function size(){W=cv.width=innerWidth;H=cv.height=innerHeight;st=Array.from({length:Math.round(W*H/9000)},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+.2,p:Math.random()*6.28,v:Math.random()*.015+.004}))}
+function tick(){const c=getComputedStyle(document.documentElement).getPropertyValue('--star').trim()||'244,240,255';cx.clearRect(0,0,W,H);
+for(const s of st){s.p+=s.v;cx.fillStyle=`rgba(${c},${.25+.5*Math.abs(Math.sin(s.p))})`;cx.beginPath();cx.arc(s.x,s.y,s.r,0,6.28);cx.fill()}
+if(!sh&&Math.random()<.006)sh={x:Math.random()*W*.8,y:Math.random()*H*.35,t:0};
+if(sh){sh.t++;const px=sh.x+sh.t*9,py=sh.y+sh.t*5,g=cx.createLinearGradient(px,py,px-90,py-50);g.addColorStop(0,`rgba(${c},.9)`);g.addColorStop(1,`rgba(${c},0)`);cx.strokeStyle=g;cx.lineWidth=1.6;cx.beginPath();cx.moveTo(px,py);cx.lineTo(px-90,py-50);cx.stroke();if(sh.t>60)sh=null}
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches)requestAnimationFrame(tick)}
+addEventListener('resize',size);size();tick();render();
+</script></body></html>
