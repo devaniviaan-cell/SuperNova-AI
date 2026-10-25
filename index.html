@@ -2,6 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Supernova</title>
+<script>/* SUPERNOVA SETTINGS: after you host server.js, put its address here, for example API_URL:"https://supernova.onrender.com" */window.SUPERNOVA={API_URL:""};</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -25,7 +26,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .ci button{border:0;background:none;color:var(--mut);padding:0 4px}
 main{display:flex;flex-direction:column}
 header{display:flex;align-items:center;gap:12px;padding:12px 20px;min-height:52px}
-#menu{display:none;border:1px solid var(--line);background:var(--panel);border-radius:10px;width:38px;height:38px}
+#menu{display:block;border:1px solid var(--line);background:var(--panel);border-radius:10px;width:38px;height:38px}
 #ttl{color:var(--mut);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #scroll{flex:1;overflow:auto;padding:0 20px 20px}
 .wrap{max-width:780px;margin:0 auto}
@@ -69,33 +70,74 @@ textarea::placeholder{color:var(--mut)}
 aside{position:fixed;inset:0 auto 0 0;width:280px;transform:translateX(-100%);transition:transform .25s;z-index:5;background:var(--bg)}
 aside.open{transform:none}#menu{display:block}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.sec{display:flex;justify-content:space-between;align-items:center;font:600 12px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);padding:6px 10px 0}
+.sec button{border:0;background:var(--panel);border-radius:8px;width:24px;height:24px;line-height:1}
+.none{color:var(--mut);font-size:13px;margin:2px 10px}
+#qs{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:7px 10px;color:var(--tx);font:inherit;font-size:14px;outline:0}
+#list{max-height:32vh}#plist{max-height:24vh;overflow:auto;display:flex;flex-direction:column;gap:2px}
+.sf{margin-top:auto;display:flex;gap:8px}.sf button{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:8px 10px}#acc{flex:1;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#chips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}#chips button{white-space:nowrap}
+#studio{position:relative;z-index:1;display:flex;flex-direction:column;min-height:0;border-left:1px solid var(--line);background:var(--panel);backdrop-filter:blur(18px)}
+#studio[hidden]{display:none}
+body.st{grid-template-columns:270px minmax(300px,1fr) minmax(380px,1.2fr)}
+body.nosb{grid-template-columns:0 1fr}body.nosb.st{grid-template-columns:0 minmax(300px,1fr) minmax(380px,1.2fr)}body.nosb aside{display:none}
+.sth{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+#spn{flex:1;min-width:120px;background:none;border:0;color:var(--tx);font:700 18px var(--disp);outline:0}
+.sbtn{display:flex;gap:6px;flex-wrap:wrap}.sbtn button,.clr{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:3px 10px;font-size:13px}
+#srun{background:linear-gradient(135deg,var(--b),var(--a));color:#0b0922;border:0;font-weight:600}
+.tabs{display:flex;gap:4px;padding:6px 10px 0}.tabs button{border:0;background:none;color:var(--mut);padding:6px 12px;border-bottom:2px solid transparent}.tabs button.on{color:var(--tx);border-color:var(--a)}.tabs i{color:#ff8a8a;font-style:normal}
+.pane{flex:1;min-height:0;display:flex;flex-direction:column}.pane[hidden]{display:none}
+#sf{flex:1;border:0;width:100%;background:#fff}
+#sc{flex:1;resize:none;background:rgba(0,0,0,.28);color:var(--tx);font:13px/1.55 ui-monospace,Menlo,Consolas,monospace;padding:12px;border:0;outline:0;tab-size:2;white-space:pre;overflow:auto}
+#scon{flex:1;overflow:auto;padding:10px;font:12.5px ui-monospace,Menlo,monospace}.cl{padding:3px 0;border-bottom:1px solid var(--line)}.cl.error{color:#ff8a8a}.cl.warn{color:var(--c)}
+#sver{overflow:auto;padding:10px}.vr{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}.vr button{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:2px 10px}
+.fold pre{max-height:170px;overflow:auto}
+dialog input:not([type=checkbox]):not([type=radio]){width:100%;margin:6px 0;background:var(--panel);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:8px;font:inherit}
+#amodes{display:flex;flex-direction:column;gap:6px;margin:8px 0}.hint{color:var(--mut);font-size:14px}#am2{color:var(--a);font-size:14px;margin:6px 0 0}
+:root[data-theme="light"]{--bg:#f5f2ff;--bg2:#e2d9ff;--panel:rgba(255,255,255,.72);--line:rgba(80,60,170,.2);--tx:#1b1448;--mut:#5d5496;--a:#0a9d96;--b:#6b3fe0;--c:#e07a1f;--star:80,60,170;--user:rgba(107,63,224,.14);color-scheme:light}
+@media(max-width:760px){#studio{position:fixed;inset:0;z-index:6;background:var(--bg);padding-top:env(safe-area-inset-top,0px)}body.st{grid-template-columns:1fr}}
 </style></head>
 <body>
 <canvas id="sky"></canvas><div class="aurora"><i></i><i></i><i></i></div>
-<aside id="side"><div class="brand"><div class="orb" style="--s:26px"></div>Supernova</div><button id="new">New chat</button><div id="list"></div></aside>
+<aside id="side"><div class="brand"><div class="orb" style="--s:26px"></div>Supernova</div><button id="new">New chat</button><input id="qs" placeholder="Search chats (Ctrl+K)" aria-label="Search chats"><div class="sec">Chats</div><div id="list"></div><div class="sec">Projects <button id="np" aria-label="New project" title="New project">+</button></div><div id="plist"></div><div class="sf"><button id="acc">👤 This device</button><button id="thm" aria-label="Toggle light or dark" title="Light or dark">🌗</button></div></aside>
 <main>
 <header><button id="menu" aria-label="Open chats">☰</button><span id="ttl" title="Click to rename"></span><button id="mem" class="hb">Memory</button><button id="rep" class="hb2">Report</button><button id="exp" class="hb2" hidden>Export</button></header>
 <section id="scroll"><div class="wrap">
-<div id="empty"><div class="orb"></div><h1>Hi, I’m Supernova.</h1><p>Ask me anything. I can write, code, explain, plan and think things through with you.</p><div class="feat"><span>🎨 Make images</span><span>▶ Preview code live</span><span>🎙 Voice</span><span>🧠 Remembers you</span></div>
-<div class="ideas"><button>Explain quantum computing like I’m 12</button><button data-mode="Coder">Build a Snake game I can play right here</button><button data-mode="Image">Create an image of a neon city in the rain</button><button>Help me write a polite email asking for a deadline extension</button></div></div>
+<div id="empty"><div class="orb"></div><h1>Hi, I’m Supernova.</h1><p>Ask me anything. I can write, code, explain, plan and think things through with you.</p><div class="feat"><span>🎮 Games & websites</span><span>🎨 Images</span><span>🧪 Live studio</span><span>🧠 Remembers you</span></div>
+<div class="ideas"><button>Explain quantum computing like I’m 12</button><button data-mode="Game Creator">Build a Snake game I can play right here</button><button data-mode="Image">Create an image of a neon city in the rain</button><button>Help me write a polite email asking for a deadline extension</button></div></div>
 <div id="msgs"></div></div></section>
 <footer><div class="chips" id="chips"></div>
 <div class="chips" id="pend"></div><div class="bar"><button id="att" aria-label="Attach files or images">📎</button><input id="file" type="file" multiple hidden accept="image/*,.txt,.md,.csv,.json,.js,.ts,.py,.html,.css,.xml,.log"><textarea id="in" rows="1" placeholder="Message Supernova…" aria-label="Message"></textarea><button id="mic" aria-label="Dictate">🎤</button><button id="spk" aria-label="Read replies aloud">🔇</button><button id="go" aria-label="Send">➤</button></div></footer>
 </main>
+<section id="studio" hidden>
+<div class="sth"><input id="spn" aria-label="Project name"><span class="sbtn"><button id="srun" title="Run (Ctrl+Enter)">▶ Run</button><button id="srs">↻ Restart</button><button id="ssv">Save version</button><button id="sfs" title="Fullscreen preview">⛶</button><button id="sex">Export</button><button id="scl" aria-label="Close studio">✕</button></span></div>
+<div class="tabs"><button data-t="pv" class="on">Preview</button><button data-t="cd">Code</button><button data-t="cn">Console <i id="cnb"></i></button><button data-t="vr">Versions</button></div>
+<div class="pane" id="pv"><iframe id="sf" sandbox="allow-scripts allow-modals allow-pointer-lock allow-forms" title="Project preview"></iframe></div>
+<div class="pane" id="cd" hidden><textarea id="sc" spellcheck="false" aria-label="Project code"></textarea></div>
+<div class="pane" id="cn" hidden><div id="scon"></div><button id="cclr" class="clr">Clear console</button></div>
+<div class="pane" id="vr" hidden><div id="sver"></div></div>
+</section>
 <dialog id="dlg"><h3>Report a problem or idea</h3><select id="rt" aria-label="Type"><option>Wrong or bad answer</option><option>Bug</option><option>Idea to improve</option><option>Something else</option></select><textarea id="rx" rows="5" placeholder="Tell us what happened and what would make it better"></textarea><label><input type="checkbox" id="ri"> Include the last exchange</label><div class="rb"><button id="rc">Cancel</button><button id="rs">Send report</button></div><p id="rm"></p></dialog>
 <dialog id="mdlg"><h3>What Supernova remembers</h3><label><input type="checkbox" id="mon"> Remember things about me</label><div id="mlist"></div><div class="rb"><button id="mclr">Clear all</button><button id="mcl">Close</button></div></dialog>
 <dialog id="pdlg" class="big"><div class="ph"><b>Live preview</b><span><button id="pfs">Fullscreen</button><button id="pcl">Close</button></span></div><iframe id="pf" sandbox="allow-scripts allow-modals allow-pointer-lock allow-forms" title="Preview"></iframe></dialog>
+<dialog id="adlg"><h3>Account</h3><p id="awho"></p>
+<div id="amodes"><label><input type="radio" name="am" value="guest"> Guest: nothing is saved</label><label><input type="radio" name="am" value="device"> This device: saved in this browser</label></div>
+<div id="aserver" hidden><p class="hint">Account: saved on the server and available on every device.</p><input id="au" placeholder="Username" autocomplete="username"><input id="ap" type="password" placeholder="Password" autocomplete="current-password"><div class="rb"><button id="ali">Sign in</button><button id="acr">Create account</button><button id="alo" hidden>Sign out</button></div></div>
+<p id="anote" class="hint"></p><p id="am2"></p>
+<div class="rb"><button id="aex">Export data</button><button id="aim">Import data</button><input id="aif" type="file" accept=".json" hidden><button id="acl">Close</button></div></dialog>
 <script>
 const $=s=>document.querySelector(s);
 const MODES={Everyday:'You are Supernova, a warm, sharp, genuinely helpful assistant. Answer clearly and concisely; use Markdown when it helps.',Coder:'You are Supernova in Coder mode, an expert engineer. Give working code in fenced blocks with a language tag, explain briefly, and flag edge cases. For web pages, games or interfaces, deliver ONE complete self-contained HTML file (inline CSS and JS) in a single html fenced block so it can be previewed live.',Writer:'You are Supernova in Writer mode, a gifted editor and writer. Match the requested tone, use vivid original phrasing, keep structure tight.',Study:'You are Supernova in Study mode, a patient tutor. Explain step by step with examples, then check understanding with one short question.',Image:'You are Supernova in Image mode, a gifted illustrator. Create the requested image as ONE complete self-contained SVG (viewBox 0 0 800 600, rich gradients, layered shapes, lighting and detail, no external resources) inside a single svg fenced code block, then add one short line describing it.'};
 let chats=[],cur=null,mode='Everyday',busy=false,ctl=null;
 try{chats=JSON.parse(localStorage.getItem('nova.chats')||'[]')}catch(e){}
-const save=()=>{try{localStorage.setItem('nova.chats',JSON.stringify(chats.slice(0,40)))}catch(e){}};
+function save(){persist()}
 const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function md(t){const bl=[];
 t=esc(t).replace(/```(\w*)\n?([\s\S]*?)(```|$)/g,(m,l,c,e)=>{c=c.replace(/\n$/,'');l=l.toLowerCase();let h;
 if(l==='svg'){h=e?`<div class="code art"><img alt="Generated image" src="data:image/svg+xml;base64,${b64(c.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&'))}"><div class="ch"><span>svg image</span><span><button data-dl>Download</button><button data-copy>Copy code</button></span></div><pre hidden><code>${c}</code></pre></div>`:'<div class="code art"><div class="ch"><span>Drawing…</span></div></div>'}
-else h=`<div class="code"><div class="ch"><span>${l||'code'}</span><span>${l==='html'?'<button data-prev>▶ Preview</button>':''}<button data-copy>Copy</button></span></div><pre><code>${c}</code></pre></div>`;
+else if(l==='html'&&!e)h=`<div class="code art"><div class="ch"><span>Writing code… ${c.split('\n').length} lines</span></div></div>`;
+else h=`<div class="code${l==='html'&&c.length>600?' fold':''}"><div class="ch"><span>${l||'code'}${l==='html'?' · '+c.split('\n').length+' lines':''}</span><span>${l==='html'?'<button data-prev>▶ Open in Studio</button>':''}<button data-copy>Copy</button></span></div><pre><code>${c}</code></pre></div>`;
 bl.push(h);return '\u0000'+(bl.length-1)+'\u0000'});
 const inl=s=>s.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/(^|\W)\*([^*\n]+)\*/g,'$1<i>$2</i>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
 let o='',ls=null;const cl=()=>{if(ls){o+='</'+ls+'>';ls=null}};
@@ -105,7 +147,7 @@ else if(m=ln.match(/^\s*\d+[.)]\s+(.*)/)){if(ls!=='ol'){cl();o+='<ol>';ls='ol'}o
 else{cl();if(m=ln.match(/^(#{1,3})\s+(.*)/)){const n=m[1].length+2;o+=`<h${n}>${inl(m[2])}</h${n}>`}
 else if(/^\u0000\d+\u0000$/.test(ln.trim()))o+=ln.trim();else if(ln.trim())o+='<p>'+inl(ln)+'</p>'}}
 cl();return o.replace(/\u0000(\d+)\u0000/g,(m,i)=>bl[i])}
-const body=m=>m.r==='u'?esc(m.t).replace(/\n/g,'<br>'):(md(clean(m.t))||'<span class="dots"><i></i><i></i><i></i></span>');
+const body=m=>m.r==='u'?esc(m.t).replace(/\n/g,'<br>'):(md(fixSvg(clean(m.t)))||'<span class="dots"><i></i><i></i><i></i></span>');
 const sc=()=>{const s=$('#scroll');s.scrollTop=s.scrollHeight};
 function render(){
 $('#list').innerHTML=chats.map(c=>`<div class="ci ${c.id===cur?'on':''}" data-id="${c.id}"><span>${esc(c.title)}</span><span class="acts"><button data-ren="${c.id}" aria-label="Rename chat">✎</button><button data-del="${c.id}" aria-label="Delete chat">×</button></span></div>`).join('');
@@ -184,7 +226,7 @@ if($('#ri').checked&&ch)rec.chat=ch.msgs.slice(-2).map(m=>m.t.slice(0,1500));
 try{const db=await getdb();if(!db)throw 0;await db.collection('reports').add(rec);$('#rx').value='';$('#rm').textContent='Thanks. Your report was sent.';setTimeout(()=>$('#dlg').close(),1200)}
 catch(e){$('#rm').textContent='Couldn’t send the report right now. Try again later.'}};
 let thinkOn=false,mem=[],memOn=true,uid=null;
-const clean=t=>(t||'').replace(/\[\[(?:remember|choices):[\s\S]*?\]\]/g,'').replace(/\[\[[^\]]*$/,'').trim();
+const clean=t=>(t||'').replace(/<<<<<<< SEARCH[\s\S]*?>>>>>>> REPLACE/g,'').replace(/<<<<<<< SEARCH[\s\S]*$/,'*Editing the project code…*').replace(/\[\[(?:remember|choices):[\s\S]*?\]\]/g,'').replace(/\[\[[^\]]*$/,'').trim();
 function memInstr(){return memOn?' If the user shares a lasting fact or preference worth remembering, or asks you to remember something, end your reply with a line [[remember: short fact about the user]] (one per fact; never mention it; never save passwords, card or ID numbers).'+(mem.length?' What you remember about this user: '+mem.join('; ')+'.':''):''}
 function harvest(m){const cm=/\[\[choices:([\s\S]*?)\]\]/.exec(m.t||'');if(cm){const p=cm[1].split('|').map(s=>s.trim()).filter(Boolean);if(p.length>2)m.ch={q:p[0],o:p.slice(1,6)}}const re=/\[\[remember:([\s\S]*?)\]\]/g;let x,add=0;
 while(x=re.exec(m.t||'')){const f=x[1].trim().slice(0,200);if(memOn&&f&&mem.length<50&&!mem.some(y=>y.toLowerCase()===f.toLowerCase())){mem.push(f);add=1}}
@@ -225,4 +267,171 @@ if(!sh&&Math.random()<.006)sh={x:Math.random()*W*.8,y:Math.random()*H*.35,t:0};
 if(sh){sh.t++;const px=sh.x+sh.t*9,py=sh.y+sh.t*5,g=cx.createLinearGradient(px,py,px-90,py-50);g.addColorStop(0,`rgba(${c},.9)`);g.addColorStop(1,`rgba(${c},0)`);cx.strokeStyle=g;cx.lineWidth=1.6;cx.beginPath();cx.moveTo(px,py);cx.lineTo(px-90,py-50);cx.stroke();if(sh.t>60)sh=null}
 if(!matchMedia('(prefers-reduced-motion:reduce)').matches)requestAnimationFrame(tick)}
 addEventListener('resize',size);size();tick();render();
+</script>
+<script>
+/* ===== Supernova V2 layer ===== */
+const CONFIG=Object.assign({API_URL:''},window.SUPERNOVA||{});
+let projects=[],curP=null,acct={mode:'device',name:'',token:''},errs=0,saveT=null,edT=null,pT=0;
+try{acct=Object.assign(acct,JSON.parse(localStorage.getItem('sn.acct')||'{}'))}catch(e){}
+try{projects=JSON.parse(localStorage.getItem('sn.projects')||'[]')}catch(e){}
+if(acct.mode==='guest'){chats=[];projects=[];mem=[]}
+try{const th=localStorage.getItem('sn.theme');if(th)document.documentElement.dataset.theme=th}catch(e){}
+mode='AI Chat';
+
+/* ---------- storage ---------- */
+function persist(){if(acct.mode==='guest')return;
+ try{localStorage.setItem('nova.chats',JSON.stringify(chats.slice(0,40)));localStorage.setItem('sn.projects',JSON.stringify(projects.slice(0,30)))}catch(e){}
+ if(acct.mode==='user'){clearTimeout(saveT);saveT=setTimeout(pushData,1500)}}
+async function pushData(){try{await api('/api/data',{method:'PUT',body:{chats:chats.slice(0,40),projects:projects.slice(0,30),mem}})}catch(e){}}
+async function memSave(){if(acct.mode==='guest')return;try{localStorage.setItem('sn.mem',JSON.stringify(mem))}catch(e){}
+ if(acct.mode==='user'){persist();return}
+ try{if(uid){const db=await getdb();if(db)await db.collection('data/users/'+uid).doc('memory').set({facts:mem})}}catch(e){}}
+function memInstr(){return memOn&&acct.mode!=='guest'?' If the user shares a lasting fact or preference worth remembering, or asks you to remember something, end your reply with a line [[remember: short fact about the user]] (one per fact; never mention it; never save passwords, card or ID numbers).'+(mem.length?' What you remember about this user: '+mem.join('; ')+'.':''):''}
+function loadLocal(){try{chats=JSON.parse(localStorage.getItem('nova.chats')||'[]')}catch(e){chats=[]}try{projects=JSON.parse(localStorage.getItem('sn.projects')||'[]')}catch(e){projects=[]}try{mem=JSON.parse(localStorage.getItem('sn.mem')||'[]')}catch(e){mem=[]}cur=null}
+function hdrs(){return{'Content-Type':'application/json',...(acct.token?{Authorization:'Bearer '+acct.token}:{})}}
+async function api(path,o={}){const r=await fetch(CONFIG.API_URL+path,{method:o.method||'GET',headers:hdrs(),body:o.body?JSON.stringify(o.body):undefined});const j=await r.json().catch(()=>({}));if(!r.ok)throw{status:r.status,text:j.error||'Request failed'};return j}
+async function saveFile(name,data){try{const dl=window.claude&&await claude.use('downloads');if(dl){await dl.save({filename:name,data});return}}catch(e){}
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data]));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+
+/* ---------- AI transport: Claude-hosted or your own server ---------- */
+async function llm(h,o){let s=null;try{s=window.claude?await claude.use('sample'):null}catch(e){}
+ if(s){try{const r=await s(h,{onText:o.onText,signal:o.signal,cache:false,modelTier:o.tier,...(o.imgs&&o.imgs.length?{images:o.imgs}:{})});return{text:r.text,truncated:r.truncated}}
+  catch(e){if(!(CONFIG.API_URL&&e&&e.code==='rate_limited'))throw e}}
+ if(!CONFIG.API_URL)throw{code:'unavailable'};
+ return viaServer(h,o)}
+async function viaServer(h,o){const msgs=h.map(m=>({...m}));
+ if(o.imgs&&o.imgs.length){const parts=await Promise.all(o.imgs.map(b=>new Promise(r=>{const f=new FileReader();f.onload=()=>r({type:'image',source:{type:'base64',media_type:b.type,data:String(f.result).split(',')[1]}});f.readAsDataURL(b)})));const l=msgs[msgs.length-1];l.content=[...parts,{type:'text',text:l.content}]}
+ let r;try{r=await fetch(CONFIG.API_URL+'/api/chat',{method:'POST',signal:o.signal,headers:hdrs(),body:JSON.stringify({messages:msgs,tier:o.tier})})}catch(e){if(e&&e.name==='AbortError')throw{code:'cancelled'};throw{code:'server',msg:'Could not reach the Supernova server.'}}
+ if(!r.ok){let m='';try{m=(await r.json()).error}catch(e){}throw{code:r.status===429?'rate_limited':'server',msg:m||'The server returned an error ('+r.status+').'}}
+ const rd=r.body.getReader(),dec=new TextDecoder();let buf='',txt='',stop='';
+ try{for(;;){const{done,value}=await rd.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;
+  while((i=buf.indexOf('\n\n'))>=0){const ev=buf.slice(0,i);buf=buf.slice(i+2);const d=ev.split('\n').find(l=>l.startsWith('data:'));if(!d)continue;let j;try{j=JSON.parse(d.slice(5))}catch(e){continue}
+   if(j.type==='content_block_delta'&&j.delta&&j.delta.text){txt+=j.delta.text;o.onText({text:txt})}
+   else if(j.type==='message_delta'&&j.delta&&j.delta.stop_reason)stop=j.delta.stop_reason;
+   else if(j.type==='error')throw{code:'server',msg:(j.error&&j.error.message)||'Stream error',text:txt}}}}
+ catch(e){if(e&&e.name==='AbortError')throw{code:'cancelled',text:txt};throw e}
+ if(!txt)throw{code:'empty_completion'};return{text:txt,truncated:stop==='max_tokens'}}
+
+/* ---------- tools (modes) ---------- */
+const PATCH=' When editing existing project code, reply with SEARCH/REPLACE blocks (see project rules), not the whole file.';
+const TOOLS=['AI Chat','CodeLab','Game Creator','Website Builder','Study Assistant','Writing Studio','Idea Generator','File Analyzer','Image'];
+MODES['AI Chat']=MODES.Everyday;MODES.CodeLab=MODES.Coder;MODES['Study Assistant']=MODES.Study;MODES['Writing Studio']=MODES.Writer;
+MODES['Game Creator']='You are Supernova Game Creator. Build exactly the playable game requested as ONE complete self-contained HTML file in a single html fenced block (inline CSS and JS; for 3D you may load three.js r128 from https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js). It must run immediately with no placeholders: working keyboard and touch controls, scoring, win or lose states, restart, good visuals. Get a complete, fun core loop working first and keep the code compact (aim under 700 lines) so it finishes quickly. After the code add one short line with ideas to extend it.';
+MODES['Website Builder']='You are Supernova Website Builder. Build the requested website as ONE complete self-contained HTML file in a single html fenced block (inline CSS and JS, responsive, modern design, real content instead of lorem ipsum, no external images). Keep it compact enough to finish quickly. After the code add one short line with ideas to extend it.';
+MODES['Idea Generator']='You are Supernova Idea Generator. Give distinct, original, concrete ideas grouped by theme, flag the single best one and give a first step for it.';
+MODES['File Analyzer']='You are Supernova File Analyzer. Analyse the attached files or pasted text: summary, key points, problems or risks, and next steps. Quote only short snippets and finish with a Sources list naming the files. If nothing is attached, ask the user to attach a file with the paperclip.';
+const BUILD=['Game Creator','Website Builder','CodeLab'];
+function buildTools(){$('#chips').innerHTML=TOOLS.map(k=>`<button class="${k===mode?'on':''}">${k}</button>`).join('')+'<button id="think">🧠 Think deeper</button><button id="talk">🎧 Talk</button>';
+ $('#think').onclick=e=>{thinkOn=!thinkOn;e.currentTarget.classList.toggle('on',thinkOn)};
+ if(!SR)$('#talk').hidden=true;else $('#talk').onclick=e=>{talkOn=!talkOn;e.currentTarget.classList.toggle('on',talkOn);if(talkOn){spkOn=true;$('#spk').textContent='🔊';listen()}else try{speechSynthesis.cancel()}catch(x){}}}
+const IMG_RE=/\b(draw|paint|sketch|illustrate|generate|create|make|design|render)\b[^.\n]{0,50}\b(image|picture|photo|logo|poster|artwork|illustration|icon|wallpaper|drawing|painting)\b|\b(image|picture|drawing|illustration|logo) of\b/i;
+const ABOUT='Your creator is Viaan Devani: if asked who made or built you, say Viaan Devani created Supernova. If asked what model powers you, say honestly that Supernova is built on Claude, made by Anthropic. Think carefully and double-check facts, math and code before answering.';
+const ERRMSG={not_granted:'Supernova needs permission to answer. Reload and allow it when asked.',rate_limited:'Supernova has reached its usage limit for now. Wait a bit, then press Regenerate.',images_unavailable:'Images cannot be sent from here right now.',session_expired:'Please sign in to Claude again.',prompt_too_large:'That project is too large to send. Ask for a smaller change or start a new project.',upstream_error:'The AI service had a hiccup. Press Regenerate to try again.',empty_completion:'The AI returned nothing. Press Regenerate.',refused:'That request was declined.',unavailable:'Supernova can only answer inside Claude until your own server is connected. See the setup steps for server.js and set API_URL at the top of this file.'};
+
+/* ---------- reply (rewritten) ---------- */
+async function reply(c,last,hint,imgs,cont){setBusy(true);const p=projOf(c),base=cont?last.t:'';
+ const h=(cont?c.msgs:c.msgs.slice(0,-1)).slice(-24).map(m=>({role:m.r==='u'?'user':'assistant',content:m.x||m.t}));
+ while(h.length&&h[0].role!=='user')h.shift();
+ if(cont)h.push({role:'user',content:'Continue exactly where you stopped. Do not repeat anything already written.'});
+ const lastU=[...h].reverse().find(m=>m.role==='user'&&!/^Continue exactly/.test(m.content))||h[h.length-1];
+ const mo=(mode==='AI Chat'&&IMG_RE.test(lastU.content))?'Image':mode;
+ let ins=CORE+MODES[mo]+' Reply in the language the user writes in. '+ABOUT+memInstr()+(hint?' The user marked your last answer as bad ('+hint+'). Give a clearly better answer that fixes that.':'');
+ if(p&&!cont){ins+=' PROJECT MODE: the user is improving the project code below. Keep every existing feature unless told to remove it. For small or medium changes reply ONLY with SEARCH/REPLACE blocks, each exactly like:\n<<<<<<< SEARCH\n(exact existing lines copied from the code)\n=======\n(new lines)\n>>>>>>> REPLACE\nOnly if most of the file must change, send the whole file in one html block.';lastU.content+='\n\n[Current project code]\n```html\n'+p.code.slice(0,80000)+'\n```'}
+ h[0].content='[Instructions: '+ins+']\n\n'+h[0].content;
+ const tier=(thinkOn||(!BUILD.includes(mode)&&hard(lastU.content)))?'complex':'default';
+ try{ctl=new AbortController();const r=await llm(h,{onText:({text})=>{last.t=base+text;paint()},signal:ctl.signal,tier,imgs});last.t=base+r.text;last.trunc=!!r.truncated}
+ catch(e){e=e||{};if(e.code==='cancelled'){if(e.text)last.t=base+e.text;if(!last.t)last.t='Stopped.'}
+  else{const why=e.msg||ERRMSG[e.code]||'Something went wrong ('+(e.code||'unknown')+'). Press Regenerate to try again.';last.t=(e.text?e.text+'\n\n':(last.t?last.t+'\n\n':''))+'*'+why+'*'}}
+ setBusy(false);ctl=null;if(!last.trunc)applyAI(c,last);harvest(last);paint();save();render();if(spkOn&&last.t)speak(last.t,talkOn?listen:null)}
+document.getElementById('msgs').addEventListener('click',e=>{if(e.target.dataset.cont!==undefined&&!busy){const c=chats.find(x=>x.id===cur);if(c){const l=c.msgs[c.msgs.length-1];l.trunc=false;render();reply(c,l,null,null,true)}}});
+function fixSvg(t){if(/```svg/.test(t))return t;return t.replace(/(^|\n)[ \t]*(<svg[\s\S]*?<\/svg>)/g,(m,a,s)=>a+'\n```svg\n'+s+'\n```\n')}
+function paint(){const n=Date.now();if(n-pT<120)return;pT=n;const c=chats.find(x=>x.id===cur),b=$('#msgs').lastElementChild?.querySelector('.b');if(c&&b){b.innerHTML=body(c.msgs[c.msgs.length-1]);sc()}}
+
+/* ---------- render (rewritten: search + projects) ---------- */
+function render(){const q=($('#qs').value||'').trim().toLowerCase();
+ const fl=chats.filter(c=>!q||c.title.toLowerCase().includes(q)||c.msgs.some(m=>(m.t||'').toLowerCase().includes(q)));
+ $('#list').innerHTML=fl.map(c=>`<div class="ci ${c.id===cur?'on':''}" data-id="${c.id}"><span>${esc(c.title)}</span><span class="acts"><button data-ren="${c.id}" aria-label="Rename chat">✎</button><button data-del="${c.id}" aria-label="Delete chat">×</button></span></div>`).join('')||'<p class="none">No chats</p>';
+ $('#plist').innerHTML=projects.map(p=>`<div class="ci ${p.id===curP?'on':''}" data-pid="${p.id}"><span>${esc(p.name)}</span><span class="acts"><button data-pdel="${p.id}" aria-label="Delete project">×</button></span></div>`).join('')||'<p class="none">No projects yet</p>';
+ const c=chats.find(x=>x.id===cur);$('#empty').hidden=!!(c&&c.msgs.length);$('#ttl').textContent=c?c.title:'';$('#exp').hidden=!c;
+ $('#msgs').innerHTML=c?c.msgs.map((m,i)=>{const L=i===c.msgs.length-1;return `<div class="m ${m.r}" data-i="${i}"><div class="b">${body(m)}${m.r==='a'&&m.t&&!busy?`<div class="act"><button data-cp="${i}">Copy</button><button data-sp="${i}">Listen</button><button data-up="${i}" class="${m.fb==='up'?'on':''}" aria-label="Good answer">👍</button><button data-dn="${i}" class="${m.fb==='down'?'on':''}" aria-label="Bad answer">👎</button>${L?'<button data-rg>Regenerate</button>':''}</div>${m.trunc&&L?'<div class="why">Reply was cut short. <button data-cont>Continue</button></div>':''}${m.ask&&L?'<div class="why">What went wrong? <button data-why="Incorrect">Incorrect</button><button data-why="Too long">Too long</button><button data-why="Too vague">Too vague</button><button data-why="Off topic">Off topic</button></div>':''}${chHtml(m,i,c)}`:''}</div></div>`}).join(''):'';sc()}
+$('#qs').oninput=render;
+
+/* ---------- projects + studio ---------- */
+const projOf=c=>c&&c.pid?projects.find(p=>p.id===c.pid):null;
+function newProject(name,code,chatId){const p={id:'p'+Date.now(),name:(name||'Untitled project').slice(0,40),code:code||'',versions:[],chat:chatId||null};if(code)p.versions.push({t:Date.now(),code,note:'Initial version'});projects.unshift(p);return p}
+function setCode(p,code,note){p.versions.unshift({t:Date.now(),code,note});p.versions=p.versions.slice(0,20);p.code=code;persist()}
+const SHIM='<script>(function(){function s(t,a){try{parent.postMessage({sn:1,t:t,m:[].map.call(a,function(x){try{return typeof x==="object"?JSON.stringify(x):String(x)}catch(e){return String(x)}}).join(" ")},"*")}catch(e){}}["log","warn","error","info"].forEach(function(k){var o=console[k];console[k]=function(){s(k,arguments);o.apply(console,arguments)}});addEventListener("error",function(e){s("error",[e.message+" (line "+e.lineno+")"])});addEventListener("unhandledrejection",function(e){s("error",["Unhandled: "+(e.reason&&e.reason.message||e.reason)])})})()<\/script>';
+function withShim(code){if(!code.trim())return'<body style="font:16px system-ui;padding:2rem;color:#888;background:#fff">Ask Supernova in the chat to build something. It appears here.</body>';
+ if(/<head[^>]*>/i.test(code))return code.replace(/<head[^>]*>/i,m=>m+SHIM);if(/<html[^>]*>/i.test(code))return code.replace(/<html[^>]*>/i,m=>m+SHIM);return SHIM+code}
+const curProj=()=>projects.find(x=>x.id===curP);
+function showTab(t){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));document.querySelectorAll('.pane').forEach(p=>p.hidden=p.id!==t);if(t==='cd'){const p=curProj();if(p)$('#sc').value=p.code}if(t==='vr')renderVers()}
+function run(){const p=curProj();if(!p)return;$('#scon').innerHTML='';errs=0;$('#cnb').textContent='';$('#sf').srcdoc=withShim(p.code)}
+function openStudio(p){curP=p.id;document.body.classList.add('st');$('#studio').hidden=false;$('#spn').value=p.name;$('#sc').value=p.code;showTab('pv');run();persist();render()}
+function closeStudio(){curP=null;document.body.classList.remove('st');$('#studio').hidden=true;$('#sf').srcdoc=''}
+function renderVers(){const p=curProj();$('#sver').innerHTML=p?p.versions.map((v,i)=>`<div class="vr"><span>v${p.versions.length-i} · ${new Date(v.t).toLocaleString()} · ${esc(v.note)}</span><button data-rv="${i}">${i?'Restore':'Current'}</button></div>`).join('')||'<p class="none">No versions yet</p>':''}
+function applyAI(c,last){const t=last.t||'';let p=projOf(c);
+ const ed=[...t.matchAll(/<<<<<<< SEARCH[ \t]*\n([\s\S]*?)\n=======[ \t]*\n([\s\S]*?)\n>>>>>>> REPLACE/g)];
+ const fence=[...t.matchAll(/```html\n([\s\S]*?)```/g)].map(m=>m[1]).sort((a,b)=>b.length-a.length)[0];
+ if(p&&ed.length){let code=p.code,bad=0;for(const e of ed){const i=code.indexOf(e[1]);if(i<0){bad++;continue}code=code.slice(0,i)+e[2]+code.slice(i+e[1].length)}
+  const ok=ed.length-bad;if(ok)setCode(p,code,'AI edit ('+ok+' change'+(ok>1?'s':'')+')');
+  last.t=t.replace(/<<<<<<< SEARCH[\s\S]*?>>>>>>> REPLACE/g,'').trim()+'\n\n'+(bad?'⚠ '+bad+' edit(s) could not be matched and were skipped. Ask me to resend the whole file.':'')+(ok?'✓ Updated **'+p.name+'** (v'+p.versions.length+'). See the Studio panel.':'');openStudio(p);return}
+ if(fence&&fence.length>200&&(p||BUILD.includes(mode))){if(!p){p=newProject(c.title,'',c.id);c.pid=p.id}
+  setCode(p,fence.trim(),p.versions.length?'AI rewrite':'Initial version');last.t=t.replace(/```html\n[\s\S]*?```/,'').trim()+'\n\n✓ '+(p.versions.length>1?'Updated':'Created')+' **'+p.name+'** (v'+p.versions.length+'). It is running in the Studio panel, and you can keep improving it here.';openStudio(p)}}
+function openPrev(btn){const code=btn.closest('.code').querySelector('code').textContent,c=chats.find(x=>x.id===cur);let p=projOf(c);
+ if(!p){p=newProject(c?c.title:'Project',code,c&&c.id);if(c)c.pid=p.id}else setCode(p,code,'Opened from chat');openStudio(p)}
+$('#np').onclick=()=>{const c={id:Date.now()+'',title:'New project',msgs:[]};chats.unshift(c);const p=newProject('New project','',c.id);c.pid=p.id;cur=c.id;setMode('Website Builder');openStudio(p);$('#in').focus()};
+$('#plist').onclick=e=>{const d=e.target.dataset.pdel;if(d){if(!confirm('Delete this project and its versions?'))return;projects=projects.filter(p=>p.id!==d);chats.forEach(c=>{if(c.pid===d)delete c.pid});if(curP===d)closeStudio();persist();render();return}
+ const i=e.target.closest('.ci');if(!i)return;const p=projects.find(x=>x.id===i.dataset.pid);if(!p)return;
+ let c=chats.find(x=>x.id===p.chat);if(!c){c={id:Date.now()+'',title:p.name,msgs:[],pid:p.id};chats.unshift(c);p.chat=c.id}cur=c.id;openStudio(p);$('#side').classList.remove('open')};
+$('#list').addEventListener('click',()=>{const p=projOf(chats.find(x=>x.id===cur));if(p&&!$('#studio').hidden)openStudio(p)});
+$('#new').addEventListener('click',closeStudio);
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
+$('#srun').onclick=run;$('#srs').onclick=run;$('#scl').onclick=closeStudio;
+$('#sfs').onclick=()=>{try{$('#sf').requestFullscreen()}catch(e){}};
+$('#ssv').onclick=()=>{const p=curProj();if(p){setCode(p,p.code,'Manual save');renderVers()}};
+$('#sex').onclick=()=>{const p=curProj();if(p)saveFile((p.name.replace(/[^\w]+/g,'-')||'project')+'.html',p.code)};
+$('#spn').oninput=e=>{const p=curProj();if(p){p.name=e.target.value||'Untitled project';persist();render()}};
+$('#sc').oninput=e=>{const p=curProj();if(p){p.code=e.target.value;clearTimeout(edT);edT=setTimeout(persist,800)}};
+$('#sc').onkeydown=e=>{if(e.key==='Tab'){e.preventDefault();const t=e.target,s=t.selectionStart;t.setRangeText('  ',s,t.selectionEnd,'end');t.dispatchEvent(new Event('input'))}if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();showTab('pv');run()}};
+$('#sver').onclick=e=>{const i=e.target.dataset.rv;const p=curProj();if(i&&+i>0&&p){setCode(p,p.versions[+i].code,'Restored v'+(p.versions.length-+i));$('#sc').value=p.code;renderVers();run()}};
+$('#cclr').onclick=()=>{$('#scon').innerHTML='';errs=0;$('#cnb').textContent=''};
+addEventListener('message',e=>{const f=$('#sf');if(f&&e.source===f.contentWindow&&e.data&&e.data.sn){const d=document.createElement('div');d.className='cl '+e.data.t;d.textContent=e.data.t+': '+e.data.m;$('#scon').appendChild(d);if(e.data.t==='error'){errs++;$('#cnb').textContent='('+errs+')'}}});
+
+/* ---------- accounts, guest mode, data ---------- */
+function accLabel(){$('#acc').textContent='👤 '+(acct.mode==='guest'?'Guest':acct.mode==='user'?acct.name:'This device')}
+function setAcct(a){Object.assign(acct,a);try{localStorage.setItem('sn.acct',JSON.stringify({mode:acct.mode,name:acct.name,token:acct.token}))}catch(e){}
+ if(a.mode==='guest'){chats=[];projects=[];mem=[];cur=null;closeStudio()}else if(a.mode==='device')loadLocal();
+ accLabel();render()}
+async function pull(){try{const d=await api('/api/data');const has=d&&((d.chats||[]).length||(d.projects||[]).length||(d.mem||[]).length);
+ if(has){try{localStorage.setItem('sn.backup',JSON.stringify({chats,projects,mem}))}catch(e){}chats=d.chats||[];projects=d.projects||[];mem=d.mem||[];cur=null;render()}else pushData()}catch(e){if(e.status===401)setAcct({mode:'device',token:'',name:''})}}
+async function auth(kind){const u=$('#au').value.trim(),p=$('#ap').value,m=$('#am2');m.textContent='';if(!u||!p){m.textContent='Enter a username and password.';return}
+ try{const r=await api('/api/'+kind,{method:'POST',body:{name:u,password:p}});$('#ap').value='';setAcct({mode:'user',name:r.name,token:r.token});await pull();adRender();m.textContent='Signed in. Your chats now sync across devices.'}catch(e){m.textContent=e.text||'Could not reach the server.'}}
+function adRender(){const on=!!CONFIG.API_URL;$('#aserver').hidden=!on;$('#anote').textContent=on?'':'Accounts that sync across devices need the Supernova server. Host server.js, then set API_URL at the top of this page.';
+ document.querySelectorAll('input[name=am]').forEach(r=>r.checked=r.value===acct.mode);$('#alo').hidden=acct.mode!=='user';document.getElementById('awho').textContent=acct.mode==='user'?'Signed in as '+acct.name:''}
+$('#acc').onclick=()=>{$('#am2').textContent='';adRender();$('#adlg').showModal()};
+$('#acl').onclick=()=>$('#adlg').close();
+document.querySelectorAll('input[name=am]').forEach(r=>r.onchange=()=>{setAcct({mode:r.value,token:'',name:''});adRender()});
+$('#ali').onclick=()=>auth('login');$('#acr').onclick=()=>auth('signup');
+$('#alo').onclick=()=>{setAcct({mode:'device',token:'',name:''});adRender()};
+$('#aex').onclick=()=>saveFile('supernova-data.json',JSON.stringify({chats,projects,mem},null,1));
+$('#aim').onclick=()=>$('#aif').click();
+$('#aif').onchange=async e=>{try{const d=JSON.parse(await e.target.files[0].text());if(Array.isArray(d.chats))chats=d.chats;if(Array.isArray(d.projects))projects=d.projects;if(Array.isArray(d.mem))mem=d.mem;cur=null;persist();memSave();render();$('#am2').textContent='Imported.'}catch(x){$('#am2').textContent='That file could not be imported.'}e.target.value=''};
+
+/* ---------- feedback, export, theme, shortcuts ---------- */
+async function logFb(v,why){if(CONFIG.API_URL)try{await api('/api/feedback',{method:'POST',body:{kind:'rating',v,why:why||'',mode}})}catch(e){}
+ try{const db=await getdb();if(db)await db.collection('feedback').add({v,why:why||'',mode,t:Date.now()})}catch(e){}}
+$('#rs').onclick=async()=>{const x=$('#rx').value.trim();if(!x)return;const ch=chats.find(c=>c.id===cur),rec={type:$('#rt').value,text:x,t:Date.now()};if($('#ri').checked&&ch)rec.chat=ch.msgs.slice(-2).map(m=>(m.t||'').slice(0,1500));
+ let ok=false;if(CONFIG.API_URL)try{await api('/api/feedback',{method:'POST',body:{kind:'report',...rec}});ok=true}catch(e){}
+ if(!ok)try{const db=await getdb();if(db){await db.collection('reports').add(rec);ok=true}}catch(e){}
+ $('#rm').textContent=ok?'Thanks. Your report was sent.':'Reports cannot be delivered yet. Connect the Supernova server so they reach your email.';if(ok){$('#rx').value='';setTimeout(()=>$('#dlg').close(),1200)}};
+$('#exp').onclick=()=>{const c=chats.find(x=>x.id===cur);if(c)saveFile((c.title.replace(/[^\w ]+/g,'').trim().replace(/ +/g,'-')||'chat')+'.md',c.msgs.map(m=>(m.r==='u'?'**You:** ':'**Supernova:** ')+m.t).join('\n\n'))};
+async function dlSvg(btn){saveFile('supernova-image.svg',btn.closest('.code').querySelector('code').textContent)}
+$('#thm').onclick=()=>{const dk=matchMedia('(prefers-color-scheme: dark)').matches,now=document.documentElement.dataset.theme||(dk?'dark':'light'),nx=now==='dark'?'light':'dark';document.documentElement.dataset.theme=nx;try{localStorage.setItem('sn.theme',nx)}catch(e){}};
+$('#menu').onclick=()=>{innerWidth>760?document.body.classList.toggle('nosb'):$('#side').classList.toggle('open')};
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();document.body.classList.remove('nosb');$('#qs').focus()}
+ if((e.ctrlKey||e.metaKey)&&e.key==='Enter'&&!$('#studio').hidden&&document.activeElement!==$('#in')){e.preventDefault();run()}});
+
+buildTools();accLabel();render();
+if(acct.mode==='user'&&acct.token&&CONFIG.API_URL)pull();
+
 </script></body></html>
