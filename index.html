@@ -114,9 +114,15 @@ dialog input:not([type=checkbox]):not([type=radio]){width:100%;margin:6px 0;back
 .plans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}.plan{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--panel)}.plan.pro{border-color:var(--c)}.plan b{font:700 18px var(--disp)}.plan p{margin:6px 0 0;font-size:14px}
 #srecs{width:50px;background:var(--panel);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:2px 6px;font-size:13px}
 .xl{max-height:30vh;overflow:auto;margin:6px 0}#xm{color:var(--c);font-size:14px;margin:6px 0 0}
+
+.aurora i:nth-child(4){background:#ff6fb5;right:20vw;top:-18vmax;opacity:.28;animation-duration:44s}.aurora i:nth-child(5){background:#4d7cff;left:-20vmax;bottom:-10vmax;opacity:.35;animation-duration:36s}
+.aurora{animation:hue 50s linear infinite alternate}@keyframes hue{to{filter:blur(70px) hue-rotate(40deg)}}
+#fx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}#fx span{position:absolute;bottom:-60px;opacity:.17;animation:floaty linear infinite}@keyframes floaty{to{transform:translateY(-115vh) rotate(40deg)}}
+#chips button[data-i]::before{content:attr(data-i) " "}
+details#akbox{margin:10px 0;border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:var(--panel)}details#akbox summary{cursor:pointer;font-weight:600}
 </style></head>
 <body>
-<canvas id="sky"></canvas><div class="aurora"><i></i><i></i><i></i></div>
+<canvas id="sky"></canvas><div class="aurora"><i></i><i></i><i></i><i></i><i></i></div><div id="fx" aria-hidden="true"></div>
 <aside id="side"><div class="brand"><img class="logo" alt="" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImJnIiBjeD0iMzAlIiBjeT0iMjAlIiByPSI5NSUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzJhMWQ3YSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBiMDkyMiIvPjwvcmFkaWFsR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJvIiBjeD0iMzYlIiBjeT0iMzAlIiByPSI3MCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZiIvPjxzdG9wIG9mZnNldD0iLjE2IiBzdG9wLWNvbG9yPSIjZmZiODZiIi8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiNiOThjZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM1ZWU3ZGYiIHN0b3Atb3BhY2l0eT0iLjEiLz48L3JhZGlhbEdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iciIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzVlZTdkZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2I5OGNmZiIvPjwvbGluZWFyR3JhZGllbnQ+PGZpbHRlciBpZD0iZyIgeD0iLTUwJSIgeT0iLTUwJSIgd2lkdGg9IjIwMCUiIGhlaWdodD0iMjAwJSI+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMTQiLz48L2ZpbHRlcj48L2RlZnM+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMTIiIGZpbGw9InVybCgjYmcpIi8+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSIxMTgiIGZpbGw9IiNiOThjZmYiIG9wYWNpdHk9Ii41NSIgZmlsdGVyPSJ1cmwoI2cpIi8+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSI5NiIgZmlsbD0idXJsKCNvKSIvPjxlbGxpcHNlIGN4PSIyNTYiIGN5PSIyNTYiIHJ4PSIxNzAiIHJ5PSI2MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI3IpIiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHRyYW5zZm9ybT0icm90YXRlKC0yNCAyNTYgMjU2KSIgc3Ryb2tlLWRhc2hhcnJheT0iNTIwIDYwIi8+PHBhdGggZD0iTTI1NiAxNzAgTDI3MCAyNDIgTDM0MiAyNTYgTDI3MCAyNzAgTDI1NiAzNDIgTDI0MiAyNzAgTDE3MCAyNTYgTDI0MiAyNDIgWiIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iLjk1Ii8+PC9zdmc+Cg==">Supernova</div><button id="new">New chat</button><input id="qs" placeholder="Search chats (Ctrl+K)" aria-label="Search chats"><div class="sec">Chats</div><div id="list"></div><div class="sec">Projects <button id="np" aria-label="New project" title="New project">+</button></div><div id="plist"></div><div class="sfw"><div id="usage"></div><button id="upg">✦ Upgrade plan</button><div class="sf"><button id="acc">👤 This device</button><button id="thm" aria-label="Toggle light or dark" title="Light or dark">🌗</button></div></div></aside>
 <main>
 <header><button id="menu" aria-label="Open chats">☰</button><span id="ttl" title="Click to rename"></span><button id="mem" class="hb">Memory</button><button id="rep" class="hb2">Report</button><button id="exp" class="hb2" hidden>Export</button></header>
@@ -141,12 +147,13 @@ dialog input:not([type=checkbox]):not([type=radio]){width:100%;margin:6px 0;back
 <dialog id="adlg"><h3>Your account</h3><p id="awho" class="hint"></p>
 <div id="aserver"><input id="au" placeholder="Username" autocomplete="username"><input id="ap" type="password" placeholder="Password (8+ characters)" autocomplete="current-password"><div class="rb"><button id="acr">Create account</button><button id="ali">Log in</button></div><div class="rb"><button id="alo" hidden>Sign out</button></div></div>
 <p id="anote" class="hint"></p><p id="am2"></p>
+<details id="akbox"><summary>🔑 Use my own API key (works outside Claude)</summary><p class="hint">Your key stays in this browser and goes straight to Anthropic. Do not use this on a shared computer.</p><input id="ak" type="password" placeholder="sk-ant-..." autocomplete="off"><div class="rb"><button id="aks">Save key</button><button id="akr" hidden>Remove key</button></div><p id="akm" class="hint"></p></details>
 <div class="rb"><button id="agu" class="hint-s"></button><button id="aad" class="hint-s">Admin</button></div>
 <div class="rb"><button id="aex">Export data</button><button id="aim">Import data</button><input id="aif" type="file" accept=".json" hidden><button id="acl">Close</button></div></dialog>
 <dialog id="udlg"><h3>Upgrade your plan ✦</h3><div class="plans"><div class="plan"><b>Free</b><p id="pfree"></p></div><div class="plan pro"><b>Pro 💎</b><p id="ppro"></p><p id="uprice"></p></div></div>
 <p id="upnote" class="hint"></p><div class="rb"><button id="ucl">Close</button><button id="upay" hidden>Pay online</button></div></dialog>
 <dialog id="xdlg"><h3>Admin</h3><div id="xlogin"><input id="xp" type="password" placeholder="Admin password" autocomplete="off"><div class="rb"><button id="xgo">Unlock</button></div></div>
-<div id="xpanel" hidden><p class="hint">Unlimited chats are on for this browser.</p><b>Give a plan</b><div class="rb" style="justify-content:flex-start"><select id="xusers" aria-label="User"></select><select id="xplan" aria-label="Plan"><option value="pro">Pro</option><option value="free">Free</option></select><button id="xset">Apply</button></div><b>Latest feedback</b><div id="xlist" class="xl"></div><div class="rb"><button id="xout">Log out of admin</button></div></div>
+<div id="xpanel" hidden><p class="hint">Unlimited chats are on for this browser.</p><div id="xsrv"><b>Give a plan</b><div class="rb" style="justify-content:flex-start"><select id="xusers" aria-label="User"></select><select id="xplan" aria-label="Plan"><option value="pro">Pro</option><option value="free">Free</option></select><button id="xset">Apply</button></div><b>Latest feedback</b><div id="xlist" class="xl"></div></div><div class="rb" id="xloc" hidden><button id="xreset">Reset my usage counter</button></div><div class="rb"><button id="xout">Log out of admin</button></div></div>
 <p id="xm"></p><div class="rb"><button id="xcl">Close</button></div></dialog>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
@@ -351,7 +358,7 @@ function buildTools(){$('#chips').innerHTML=TOOLS.map(k=>`<button class="${k===m
  if(!SR)$('#talk').hidden=true;else $('#talk').onclick=e=>{talkOn=!talkOn;e.currentTarget.classList.toggle('on',talkOn);if(talkOn){spkOn=true;$('#spk').textContent='🔊';listen()}else try{speechSynthesis.cancel()}catch(x){}}}
 const IMG_RE=/\b(draw|paint|sketch|illustrate|generate|create|make|design|render)\b[^.\n]{0,50}\b(image|picture|photo|logo|poster|artwork|illustration|icon|wallpaper|drawing|painting)\b|\b(image|picture|drawing|illustration|logo) of\b/i;
 const ABOUT='Your creator is Viaan Devani: if asked who made or built you, say Viaan Devani created Supernova. If asked what model powers you, say honestly that Supernova is built on Claude, made by Anthropic. Think carefully and double-check facts, math and code before answering.';
-const ERRMSG={not_granted:'Supernova needs permission to answer. Reload and allow it when asked.',rate_limited:'Supernova has reached its usage limit for now. Wait a bit, then press Regenerate.',images_unavailable:'Images cannot be sent from here right now.',session_expired:'Please sign in to Claude again.',prompt_too_large:'That project is too large to send. Ask for a smaller change or start a new project.',upstream_error:'The AI service had a hiccup. Press Regenerate to try again.',empty_completion:'The AI returned nothing. Press Regenerate.',refused:'That request was declined.',unavailable:'Supernova cannot reach an AI from this page. Inside the Claude app it uses Claude, and anywhere else it needs the Supernova server (server.js). Open Supernova from your server link to chat.'};
+const ERRMSG={not_granted:'Supernova needs permission to answer. Reload and allow it when asked.',rate_limited:'Supernova has reached its usage limit for now. Wait a bit, then press Regenerate.',images_unavailable:'Images cannot be sent from here right now.',session_expired:'Please sign in to Claude again.',prompt_too_large:'That project is too large to send. Ask for a smaller change or start a new project.',upstream_error:'The AI service had a hiccup. Press Regenerate to try again.',empty_completion:'The AI returned nothing. Press Regenerate.',refused:'That request was declined.',unavailable:'Supernova cannot reach an AI from this page yet. Open the Account window and add your own API key (🔑), or open Supernova from your server link. Inside the Claude app it uses Claude automatically.'};
 
 /* ---------- reply (rewritten) ---------- */
 async function reply(c,last,hint,imgs,cont){setBusy(true);const p=projOf(c),base=cont?last.t:'';
@@ -360,11 +367,12 @@ async function reply(c,last,hint,imgs,cont){setBusy(true);const p=projOf(c),base
  if(cont)h.push({role:'user',content:'Continue exactly where you stopped. Do not repeat anything already written.'});
  const lastU=[...h].reverse().find(m=>m.role==='user'&&!/^Continue exactly/.test(m.content))||h[h.length-1];
  const mo=(mode==='AI Chat'&&IMG_RE.test(lastU.content))?'Image':mode;
- let ins=CORE+PERSONA+MODES[mo]+EFF[effort]+' Reply in the language the user writes in. '+ABOUT+memInstr()+(hint?' The user marked your last answer as bad ('+hint+'). Give a clearly better answer that fixes that.':'');
+ const tier=(effort==='medium'&&hard(lastU.content))?'high':effort;
+ let ins=CORE+PERSONA+MODES[mo]+EFF[tier]+' Reply in the language the user writes in. '+ABOUT+memInstr()+(hint?' The user marked your last answer as bad ('+hint+'). Give a clearly better answer that fixes that.':'');
  if(p&&!cont){ins+=' PROJECT MODE: the user is improving the project code below. Keep every existing feature unless told to remove it. For small or medium changes reply ONLY with SEARCH/REPLACE blocks, each exactly like:\n<<<<<<< SEARCH\n(exact existing lines copied from the code)\n=======\n(new lines)\n>>>>>>> REPLACE\nOnly if most of the file must change, send the whole file in one html block.';lastU.content+='\n\n[Current project code]\n```html\n'+p.code.slice(0,80000)+'\n```'}
  h[0].content='[Instructions: '+ins+']\n\n'+h[0].content;
- const tier=effort;
- try{ctl=new AbortController();const r=await llm(h,{onText:({text})=>{last.t=base+text;paint()},signal:ctl.signal,effort,imgs});last.t=base+r.text;last.trunc=!!r.truncated}
+ 
+ try{ctl=new AbortController();const r=await llm(h,{onText:({text})=>{last.t=base+text;paint()},signal:ctl.signal,effort:tier,imgs});last.t=base+r.text;last.trunc=!!r.truncated}
  catch(e){e=e||{};if(e.code==='cancelled'){if(e.text)last.t=base+e.text;if(!last.t)last.t='Stopped.'}
   else{const why=e.msg||ERRMSG[e.code]||'Something went wrong ('+(e.code||'unknown')+'). Press Regenerate to try again.';last.t=(e.text?e.text+'\n\n':(last.t?last.t+'\n\n':''))+'*'+why+'*'}}
  setBusy(false);ctl=null;if(!last.trunc)applyAI(c,last);harvest(last);paint();save();render();if(spkOn&&last.t)speak(last.t,talkOn?listen:null)}
@@ -465,7 +473,7 @@ if(acct.mode==='user'&&acct.token&&CONFIG.API_URL)pull();
 let effort='medium',usage=null,adminTok='',cfg={payUrl:'',price:'',limits:{free:50,pro:500,guest:20},windowHours:5};
 try{effort=localStorage.getItem('sn.eff')||'medium';adminTok=sessionStorage.getItem('sn.adm')||''}catch(e){}
 const EFF={instant:' Be quick: answer in a few lines unless detail is truly needed.',medium:'',high:' Take extra care: reason step by step, consider edge cases and alternatives, verify your answer, then give a polished, thorough result.'};
-const PERSONA='Personality: you are Supernova, a kind, upbeat and funny assistant. Be warm and encouraging, use emojis naturally (1 to 4 per reply), and when it fits add a light meme-style joke or classic format (like "Me: ... / Also me: ...", "Nobody: ... Me:", "it be like that sometimes"). Never let a joke hurt clarity, never mock the user, and be calm and serious when the topic is sad, risky, medical or legal. Smartness: work out the real need, reason before answering, double-check, give the best answer first, then one useful extra such as a tip or a next step. When the user asks for a file (CSV, text, JSON, Markdown, code, HTML), put the complete content in ONE fenced code block with the right language tag so they can press Download. You cannot create Word, PDF or Excel files; offer CSV or plain text instead. ';
+const PERSONA='Personality: you are Supernova, a kind, upbeat and funny assistant with a big heart 💜. Be warm, encouraging and genuinely helpful, use emojis expressively but tastefully (2 to 6 per reply, also in headings and lists), and when it fits add a light meme-style joke or classic format ("Me: ... / Also me: ...", "Nobody: ... / Me:", "it be like that sometimes 😅", "plot twist:"). Never let a joke hurt clarity, never mock the user, and be calm, gentle and serious when the topic is sad, risky, medical or legal. Thinking protocol (do it silently, show only the result): 1) work out what the person really needs and any hidden constraints; 2) consider two or three approaches and pick the best; 3) solve step by step; 4) check the answer, numbers, code and edge cases; 5) give the best answer first, then one useful extra such as a tip, shortcut or next step. For maths, logic or code show the key steps. If you are not sure, say so and say how to check. When the user asks for a file (CSV, text, JSON, Markdown, code, HTML), put the complete content in ONE fenced code block with the right language tag so they can press Download. You cannot create Word, PDF or Excel files; offer CSV or plain text instead. ';
 const FMT=n=>{const m=Math.max(1,Math.ceil(n/6e4));return m>=60?Math.floor(m/60)+'h '+m%60+'m':m+'m'};
 
 /* ---------- small helpers ---------- */
@@ -547,5 +555,106 @@ $('#srec').onclick=()=>{const p=curProj();if(!p)return;showTab('pv');run();const
 addEventListener('message',e=>{if(e.data&&e.data.sn===2&&e.data.blob&&e.source===$('#sf').contentWindow){saveFile('supernova-video.webm',e.data.blob);toast('Video saved as .webm.')}});
 
 buildTools();initServer();refreshUsage();
+
+</script>
+<script>
+/* ===== Supernova V4 layer: own API key, local accounts, admin, lock timer, visuals ===== */
+const ADMIN_LOCAL={salt:'d1da1d93e8303785ca7e8878faf11e83',hash:'4a8735a981b96e29b02c06e1fe8b09cb929a2dbe17fedd8210d4fc52906c06e8',iter:150000};
+const MODELS={instant:'claude-haiku-5-5',medium:'claude-sonnet-5-5',high:'claude-opus-5-5'};
+let adminLocal=false;try{adminLocal=sessionStorage.getItem('sn.adml')==='1'}catch(e){}
+const K=k=>acct.mode==='local'?k+':'+acct.name:k;
+const getKey=()=>{try{return localStorage.getItem('sn.key')||''}catch(e){return''}};
+const cleanN=n=>String(n||'').trim().toLowerCase().replace(/[^a-z0-9_.-]/g,'').slice(0,30);
+const hex=u=>[...new Uint8Array(u)].map(x=>x.toString(16).padStart(2,'0')).join('');
+const rnd=()=>hex(crypto.getRandomValues(new Uint8Array(16)));
+async function pbk(pw,saltHex,iter){const salt=Uint8Array.from(saltHex.match(/../g).map(h=>parseInt(h,16)));const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);return hex(await crypto.subtle.deriveBits({name:'PBKDF2',salt,iterations:iter,hash:'SHA-256'},k,256))}
+
+/* ---------- storage that knows about local accounts ---------- */
+function persist(){if(acct.mode==='guest')return;
+ try{localStorage.setItem(K('nova.chats'),JSON.stringify(chats.slice(0,40)));localStorage.setItem(K('sn.projects'),JSON.stringify(projects.slice(0,30)))}catch(e){}
+ if(acct.mode==='user'){clearTimeout(saveT);saveT=setTimeout(pushData,1500)}}
+function loadLocal(){try{chats=JSON.parse(localStorage.getItem(K('nova.chats'))||'[]')}catch(e){chats=[]}try{projects=JSON.parse(localStorage.getItem(K('sn.projects'))||'[]')}catch(e){projects=[]}try{mem=JSON.parse(localStorage.getItem(K('sn.mem'))||'[]')}catch(e){mem=[]}cur=null}
+async function memSave(){if(acct.mode==='guest')return;try{localStorage.setItem(K('sn.mem'),JSON.stringify(mem))}catch(e){}
+ if(acct.mode==='user'){persist();return}
+ if(acct.mode==='device')try{if(uid){const db=await getdb();if(db)await db.collection('data/users/'+uid).doc('memory').set({facts:mem})}}catch(e){}}
+function setAcct(a){Object.assign(acct,a);try{localStorage.setItem('sn.acct',JSON.stringify({mode:acct.mode,name:acct.name,token:acct.token}))}catch(e){}
+ if(a.mode==='guest'){chats=[];projects=[];mem=[];cur=null;closeStudio()}else if(a.mode==='device'||a.mode==='local'){closeStudio();loadLocal()}
+ accLabel();render();refreshUsage()}
+if(acct.mode==='local')loadLocal();
+
+/* ---------- accounts: server when connected, otherwise on this device ---------- */
+async function auth(kind){const u=cleanN($('#au').value),p=$('#ap').value,m=$('#am2');m.textContent='';
+ if(u.length<3){m.textContent='Username needs 3 or more letters or numbers.';return}
+ if(p.length<8){m.textContent='Password needs at least 8 characters.';return}
+ if(CONFIG.API_URL){try{const r=await api('/api/'+kind,{method:'POST',body:{name:u,password:p}});$('#ap').value='';setAcct({mode:'user',name:r.name,token:r.token});await pull();adRender();m.textContent='Signed in. Your chats now sync across devices.'}catch(e){m.textContent=e.text||'Could not reach the server.'}return}
+ if(!window.crypto||!crypto.subtle){m.textContent='This browser blocks secure password storage here. Open Supernova in its own tab.';return}
+ let A={};try{A=JSON.parse(localStorage.getItem('sn.accts')||'{}')}catch(e){}
+ const keep={chats,projects,mem};
+ if(kind==='signup'){if(A[u]){m.textContent='That username is taken on this device.';return}const salt=rnd();A[u]={salt,hash:await pbk(p,salt,150000)};try{localStorage.setItem('sn.accts',JSON.stringify(A))}catch(e){m.textContent='Could not save the account on this device.';return}}
+ else{const a=A[u];if(!a||await pbk(p,a.salt,150000)!==a.hash){m.textContent='Wrong username or password.';return}}
+ $('#ap').value='';setAcct({mode:'local',name:u,token:''});
+ if(kind==='signup'){chats=keep.chats;projects=keep.projects;mem=keep.mem;persist();memSave();render()}
+ adRender();m.textContent=(kind==='signup'?'Account created. ':'Welcome back. ')+'It is saved on this device. Connect the server to use it on every device.'}
+function accLabel(){$('#acc').textContent='👤 '+(acct.mode==='guest'?'Guest':(acct.mode==='user'||acct.mode==='local')?acct.name:'Sign in')}
+function adRender(){const srv=!!CONFIG.API_URL,u=acct.mode==='user'||acct.mode==='local';
+ $('#anote').textContent=srv?'':'Server not connected, so accounts are kept on this device only. Connect the server to log in anywhere.';
+ ['au','ap','ali','acr'].forEach(i=>$('#'+i).disabled=u);$('#alo').hidden=!u;
+ $('#awho').textContent=u?'Signed in as '+acct.name+(acct.mode==='local'?' · this device':usage&&usage.plan?' · '+usage.plan+' plan':''):'Create an account or log in to keep your chats.';
+ $('#agu').textContent=acct.mode==='guest'?'Leave guest mode':'Continue as guest (nothing is saved)';
+ $('#akr').hidden=!getKey();$('#akm').textContent=getKey()?'Key saved. Supernova now talks to Anthropic directly from this browser.':''}
+$('#aks').onclick=()=>{const k=$('#ak').value.trim();if(!/^sk-ant-/.test(k)){$('#akm').textContent='That does not look like an Anthropic key (it starts with sk-ant-).';return}try{localStorage.setItem('sn.key',k)}catch(e){}$('#ak').value='';adRender();toast('Key saved in this browser. 🔑')};
+$('#akr').onclick=()=>{try{localStorage.removeItem('sn.key')}catch(e){}adRender();toast('Key removed.')};
+
+/* ---------- AI: server, your own key, or Claude ---------- */
+async function readSSE(r,o){const rd=r.body.getReader(),dec=new TextDecoder();let buf='',txt='',stop='';
+ try{for(;;){const{done,value}=await rd.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;
+  while((i=buf.indexOf('\n\n'))>=0){const ev=buf.slice(0,i);buf=buf.slice(i+2);const d=ev.split('\n').find(l=>l.startsWith('data:'));if(!d)continue;let j;try{j=JSON.parse(d.slice(5))}catch(e){continue}
+   if(j.type==='content_block_delta'&&j.delta&&j.delta.text){txt+=j.delta.text;o.onText({text:txt})}
+   else if(j.type==='message_delta'&&j.delta&&j.delta.stop_reason)stop=j.delta.stop_reason;
+   else if(j.type==='error')throw{code:'server',msg:(j.error&&j.error.message)||'Stream error',text:txt}}}}
+ catch(e){if(e&&e.name==='AbortError')throw{code:'cancelled',text:txt};throw e}
+ if(!txt)throw{code:'empty_completion'};return{text:txt,truncated:stop==='max_tokens'}}
+async function viaKey(h,o){const msgs=h.map(m=>({...m}));
+ if(o.imgs&&o.imgs.length){const parts=await Promise.all(o.imgs.map(b=>new Promise(r=>{const f=new FileReader();f.onload=()=>r({type:'image',source:{type:'base64',media_type:b.type,data:String(f.result).split(',')[1]}});f.readAsDataURL(b)})));const l=msgs[msgs.length-1];l.content=[...parts,{type:'text',text:l.content}]}
+ let r;try{r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',signal:o.signal,headers:{'content-type':'application/json','x-api-key':getKey(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:MODELS[o.effort]||MODELS.medium,max_tokens:{instant:8000,high:32000}[o.effort]||16000,stream:true,messages:msgs})})}
+ catch(e){if(e&&e.name==='AbortError')throw{code:'cancelled'};throw{code:'server',msg:'Could not reach Anthropic from this page. Open Supernova from your own website or the downloaded file.'}}
+ if(!r.ok){let m='';try{m=(await r.json()).error.message}catch(e){}throw{code:r.status===429?'rate_limited':'key',msg:r.status===401?'Your API key was rejected. Check it in the account window.':(r.status===429?'Anthropic says you are out of credits or rate limited. Try again soon.':(m||'Anthropic returned an error ('+r.status+').'))}}
+ return readSSE(r,o)}
+async function llm(h,o){
+ const viaClaude=async()=>{let s=null;try{s=window.claude?await claude.use('sample'):null}catch(e){s=null}if(!s)return null;
+  const r=await s(h,{onText:o.onText,signal:o.signal,cache:false,modelTier:{instant:'quick',high:'complex'}[o.effort]||'default',effort:{instant:'low',high:'high'}[o.effort]||'medium',...(o.effort==='instant'?{fast:'auto'}:o.effort==='high'?{fast:false}:{}),...(o.imgs&&o.imgs.length?{images:o.imgs}:{})});
+  return{text:r.text,truncated:r.truncated}};
+ const fb=async e=>{if(e&&e.code==='server'&&window.claude){const r=await viaClaude();if(r)return r}throw e};
+ if(CONFIG.API_URL){try{return await viaServer(h,o)}catch(e){return fb(e)}}
+ if(getKey()){try{return await viaKey(h,o)}catch(e){return fb(e)}}
+ const r=await viaClaude();if(r)return r;throw{code:'unavailable'}}
+
+/* ---------- limit: after 50 chats it locks for 5 hours, then resets ---------- */
+function localUse(consume){if(adminLocal)return{ok:true,used:0,max:0,unlimited:true,plan:'admin',resetAt:0};
+ let u={start:0,count:0,lock:0};try{u=Object.assign(u,JSON.parse(localStorage.getItem('sn.usage')||'null'))}catch(e){}
+ const W5=cfg.windowHours*36e5,now=Date.now();
+ if((u.lock&&now>=u.lock)||(!u.lock&&(!u.start||now-u.start>=W5)))u={start:now,count:0,lock:0};
+ const max=cfg.limits.free,ok=!u.lock&&u.count<max;if(ok&&consume){u.count++;if(u.count>=max)u.lock=now+W5}
+ try{localStorage.setItem('sn.usage',JSON.stringify(u))}catch(e){}return{ok,used:u.count,max,resetAt:u.lock||u.start+W5}}
+
+/* ---------- admin: server when connected, otherwise a local check ---------- */
+$('#aad').onclick=()=>{$('#adlg').close();$('#xm').textContent='';const on=!!adminTok||adminLocal;$('#xpanel').hidden=!on;$('#xlogin').hidden=on;$('#xsrv').hidden=!adminTok;$('#xloc').hidden=!adminLocal||!!adminTok;if(adminTok)xLoad();$('#xdlg').showModal()};
+$('#xgo').onclick=async()=>{const m=$('#xm'),pw=$('#xp').value;m.textContent='';
+ if(CONFIG.API_URL){try{const r=await fetch(CONFIG.API_URL+'/api/admin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw})}),j=await r.json();if(!r.ok)throw j;
+   adminTok=j.token;try{sessionStorage.setItem('sn.adm',adminTok)}catch(e){}$('#xp').value='';$('#xlogin').hidden=true;$('#xpanel').hidden=false;$('#xsrv').hidden=false;$('#xloc').hidden=true;xLoad();refreshUsage()}catch(e){m.textContent=(e&&e.error)||'Could not reach the server.'}return}
+ try{if(await pbk(pw,ADMIN_LOCAL.salt,ADMIN_LOCAL.iter)!==ADMIN_LOCAL.hash){m.textContent='Wrong admin password.';return}}catch(e){m.textContent='This browser blocks secure checks here. Open Supernova in its own tab.';return}
+ adminLocal=true;try{sessionStorage.setItem('sn.adml','1')}catch(e){}$('#xp').value='';$('#xlogin').hidden=true;$('#xpanel').hidden=false;$('#xsrv').hidden=true;$('#xloc').hidden=false;refreshUsage()};
+$('#xreset').onclick=()=>{try{localStorage.removeItem('sn.usage')}catch(e){}refreshUsage();toast('Usage counter reset. ✅')};
+$('#xout').onclick=()=>{adminTok='';adminLocal=false;try{sessionStorage.removeItem('sn.adm');sessionStorage.removeItem('sn.adml')}catch(e){}$('#xdlg').close();refreshUsage()};
+
+/* ---------- looks: emoji tools, floating background ---------- */
+const ICON={'AI Chat':'💬','CodeLab':'💻','Game Creator':'🎮','Website Builder':'🌐','Study Assistant':'📚','Writing Studio':'✍️','Idea Generator':'💡','Video Maker':'🎬','File Analyzer':'📄','Image':'🎨'};
+function buildTools(){$('#chips').innerHTML=TOOLS.map(k=>`<button class="${k===mode?'on':''}" data-i="${ICON[k]||'✨'}">${k}</button>`).join('')+'<button id="talk">🎧 Talk</button>';
+ if(!SR)$('#talk').hidden=true;else $('#talk').onclick=e=>{talkOn=!talkOn;e.currentTarget.classList.toggle('on',talkOn);if(talkOn){spkOn=true;$('#spk').textContent='🔊';listen()}else try{speechSynthesis.cancel()}catch(x){}}}
+$('#mem').textContent='🧠 Memory';$('#rep').textContent='🐞 Report';$('#exp').textContent='📤 Export';$('#np').title='New project';
+(function(){const fx=$('#fx'),E=['✨','🚀','🪐','⭐','🌙','💫','🛸','☄️','🌌','🎮','💡','🎨'];
+ for(let i=0;i<16;i++){const s=document.createElement('span');s.textContent=E[i%E.length];s.style.cssText=`left:${Math.random()*96}%;font-size:${14+Math.random()*20}px;animation-duration:${28+Math.random()*40}s;animation-delay:-${Math.random()*60}s`;fx.appendChild(s)}})();
+
+buildTools();adRender();accLabel();refreshUsage();
 
 </script></body></html>
