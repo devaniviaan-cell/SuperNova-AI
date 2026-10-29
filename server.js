@@ -4,7 +4,7 @@
 // Environment variables (set these on your host, never inside the page):
 //   ANTHROPIC_API_KEY  required for chat   (console.anthropic.com)
 //   SECRET             long random text that signs login tokens
-//   ADMIN_PASSWORD     your admin password (unlocks unlimited chats + admin panel)
+//   ADMIN_PASSWORD     optional: your own admin password (a default one is built in as a hash)
 //   MODEL / MODEL_FAST / MODEL_DEEP   models for Medium / Instant / High effort
 //   PAY_URL            your payment link (Stripe / Razorpay / PayPal) shown on the Upgrade screen
 //   PRICE_TEXT         text shown on the Upgrade screen, e.g. "Rs 299 / month"
@@ -56,11 +56,13 @@ const attempts = new Map();
 function throttled(k) { const now = Date.now(), a = (attempts.get(k) || []).filter((t) => now - t < 9e5); a.push(now); attempts.set(k, a); return a.length > 12; }
 const dur = (ms) => { const m = Math.ceil(ms / 6e4); return m >= 60 ? `${Math.floor(m / 60)}h ${m % 60}m` : `${m}m`; };
 
+// After the last chat is used, the account locks for WINDOW (5h) and then resets to zero.
 function quota(key, max, consume) {
   const now = Date.now(); let u = db.usage[key];
-  if (!u || now - u.start >= WINDOW) u = db.usage[key] = { start: now, count: 0 };
-  const ok = u.count < max; if (ok && consume) { u.count++; dirty = true; }
-  return { ok, used: u.count, max, reset: u.start + WINDOW };
+  if (!u || (u.lock && now >= u.lock) || (!u.lock && now - u.start >= WINDOW)) u = db.usage[key] = { start: now, count: 0, lock: 0 };
+  const ok = !u.lock && u.count < max;
+  if (ok && consume) { u.count++; if (u.count >= max) u.lock = now + WINDOW; dirty = true; }
+  return { ok, used: u.count, max, reset: u.lock || u.start + WINDOW };
 }
 const cors = () => ({ 'Access-Control-Allow-Origin': ORIGIN, 'Access-Control-Allow-Headers': 'Content-Type, Authorization', 'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS' });
 const send = (res, code, obj) => { res.writeHead(code, { 'Content-Type': 'application/json', ...cors() }); res.end(JSON.stringify(obj)); };
@@ -84,6 +86,12 @@ async function recordFeedback(subject, data) {
   const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + E.RESEND_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ from: FROM, to: [TO], subject, text }) });
   if (!r.ok) throw new Error('email failed ' + r.status); return 'emailed';
 }
+// Default admin password check uses a salted scrypt hash (no plain text in this file).
+// Set ADMIN_PASSWORD on your host to use a different password.
+const ADMIN_DEFAULT = { salt: '87f0393119090dbf70b67f9362cb5ff2', hash: '3facabdfd7f8ce292e5c8e0869a32e50955b8d251c0ee61360ea47f764bce2b726f4e10aa5a9639474a9d62b4d9e7b1cb02a4812f46415c706b9b7edcb141213' };
+const adminOk = (pw) => E.ADMIN_PASSWORD
+  ? crypto.timingSafeEqual(sha(pw), sha(E.ADMIN_PASSWORD))
+  : crypto.timingSafeEqual(Buffer.from(hashPw(String(pw || ''), ADMIN_DEFAULT.salt), 'hex'), Buffer.from(ADMIN_DEFAULT.hash, 'hex'));
 const STATIC = { '/': ['nova.html', 'text/html; charset=utf-8'], '/index.html': ['nova.html', 'text/html; charset=utf-8'], '/logo.svg': ['logo.svg', 'image/svg+xml'], '/logo.png': ['logo.png', 'image/png'] };
 
 http.createServer(async (req, res) => {
@@ -97,7 +105,7 @@ http.createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': STATIC[url][1], 'Cache-Control': 'no-cache' }); return res.end(fs.readFileSync(f));
     }
     if (url === '/api/health') return send(res, 200, { ok: true, chat: !!KEY, email: !!E.RESEND_API_KEY });
-    if (url === '/api/config') return send(res, 200, { payUrl: E.PAY_URL || '', price: E.PRICE_TEXT || '', limits: LIMITS, windowHours: WINDOW / 36e5, adminEnabled: !!E.ADMIN_PASSWORD });
+    if (url === '/api/config') return send(res, 200, { payUrl: E.PAY_URL || '', price: E.PRICE_TEXT || '', limits: LIMITS, windowHours: WINDOW / 36e5, adminEnabled: true });
 
     if (url === '/api/signup' && req.method === 'POST') {
       if (throttled(ip)) return send(res, 429, { error: 'Too many attempts. Try again later.' });
@@ -134,10 +142,9 @@ http.createServer(async (req, res) => {
       return send(res, 200, { ok: true, how });
     }
     if (url === '/api/admin' && req.method === 'POST') {
-      if (!E.ADMIN_PASSWORD) return send(res, 503, { error: 'ADMIN_PASSWORD is not set on the server.' });
       if (throttled(ip + 'a')) return send(res, 429, { error: 'Too many attempts. Try again later.' });
       const b = await readBody(req);
-      if (!crypto.timingSafeEqual(sha(b.password), sha(E.ADMIN_PASSWORD))) return send(res, 401, { error: 'Wrong admin password.' });
+      if (!adminOk(b.password)) return send(res, 401, { error: 'Wrong admin password.' });
       return send(res, 200, { token: sign({ admin: true, exp: Date.now() + 12 * 36e5 }) });
     }
     if (url === '/api/admin/feedback') {
@@ -170,4 +177,4 @@ http.createServer(async (req, res) => {
     }
     send(res, 404, { error: 'Not found' });
   } catch (e) { if (!res.headersSent) send(res, 500, { error: e.message || 'Server error' }); else res.end(); }
-}).listen(PORT, () => console.log(`Supernova on :${PORT}  chat=${KEY ? 'ready' : 'NO API KEY'}  admin=${E.ADMIN_PASSWORD ? 'on' : 'off'}  email=${E.RESEND_API_KEY ? 'on' : 'off'}`));
+}).listen(PORT, () => console.log(`Supernova on :${PORT}  chat=${KEY ? 'ready' : 'NO API KEY'}  admin=${E.ADMIN_PASSWORD ? 'custom password' : 'default password'}  email=${E.RESEND_API_KEY ? 'on' : 'off'}`));
